@@ -119,3 +119,6 @@ HIPAA architecture design
 
 HIPAA Architecture Design - Shared Services VPC
 ![](https://cloud.google.com/architecture/images/hipaa-shared-services-vpc.png)
+
+Google Healthcare Analytics
+![](https://cloud.google.com/architecture/images/provider-analytics-reference-architecture-diagram1.svg)
