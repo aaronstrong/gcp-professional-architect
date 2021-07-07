@@ -99,6 +99,11 @@ Current on-prem data center has had outages, the teams are supporting multiple e
   * Decrease infrastructure administration costs.
   * Google can host Active Directory, you can deploy it on GCE or sync user names, passwods and groups
 
+> SSO / 2SV
+
+  * Maintain regulatory compliance.
+  * Enabling SSO and 2-Step varification to help enforce compliance
+
 > BigQuery / DataStudio / Dataflow
 
   * Make predictions and generate reports on industry trends based on provider data
@@ -106,3 +111,11 @@ Current on-prem data center has had outages, the teams are supporting multiple e
 > Healthcare API
 
 > VPC Service Controls
+
+## Diagrams
+
+HIPAA architecture design
+![](https://cloud.google.com/architecture/images/hipaa-reference-architecture.png)
+
+HIPAA Architecture Design - Shared Services VPC
+![](https://cloud.google.com/architecture/images/hipaa-shared-services-vpc.png)
