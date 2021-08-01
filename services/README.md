@@ -2,7 +2,7 @@
 Here's the list of [services](https://cloud.google.com/products)
 
 ## Compute
-### Compute Engine
+### [Compute Engine](./compute)
 ### Preemptible VMS
 
 ## Containers
