@@ -10,4 +10,4 @@
 
 
 ## Services
-[Google Services](./services/readme.md)
+[Google Services](./services)
