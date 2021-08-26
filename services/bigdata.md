@@ -95,4 +95,17 @@ The data lifecycle has four steps.
 * Query complete genomics information for large research projects in seconds
 * Process many genomics and experiments in parrellel
 * Open industry standards like Global Alliance and Genomics and Health
-* 
+
+## Dataflow vs Dataproc
+
+| | Dataflow</br><img src="https://avatars.githubusercontent.com/u/59933973?s=280&v=4" width="100" height="100"> | Dataproc</br><img src="https://miro.medium.com/max/1024/1*0GUArw6GUW0M0QdTc3oWOg.png" width="100" height="100">| Cloud Dataprep</br><img src="https://miro.medium.com/max/600/0*PZBSMFQzL3TmC_wJ." width="100" height="100">|
+| --- | -------------- | -------------- | -------------------|
+|| Existing Hadoop/Spark apps | New data processing pipeline | UI-driven data preparation |
+|| Machine Learing / Data Science Ecosystem | Unified Streaming and Batch processing | Scales on-demand |
+|| Tunable cluster paramaters | Fully Managed, No-Ops | Fully managed, No-ops |
+| <b>Workloads</b> |
+| Great for streaming workloads | :x: | :heavy_check_mark: |  |
+| Batch processing | :heavy_check_mark: | :x: | |
+| Interactive processing and notebooks | :heavy_check_mark: | :x: | |
+| Machine Learing with Spark ML | :heavy_check_mark: | :x: | |
+| Processing for ML | :x: | :heavy_check_mark: | |
