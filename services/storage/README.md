@@ -171,7 +171,7 @@ not ideal for operational or transactional databases
 ## [Local SSD](https://cloud.google.com/compute/docs/disks#localssds)
 * High performance, transient, local block storage
 * You must manage striping on local SSDs yourself
-* GCE automatically encrypts your ata when it is written to local SSD storage
+* GCE automatically encrypts your data when it is written to local SSD storage
 
 ## Filestore
 * High performance file storage (NFS)
