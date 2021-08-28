@@ -15,7 +15,7 @@ Here's the list of [services](https://cloud.google.com/products)
 ### Dataprep
 ### Data Studio
 ---
-## [Storage](./storage/readme.md)
+## [Storage](./storage/)
 ### Cloud BigTable
 ### Cloud Spanner
 ### Cloud SQL
