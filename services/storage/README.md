@@ -76,7 +76,6 @@
 
 ## Cloud SQL
 
-* NoSQL
 * provides fully managed, <u>relational SQL databases</u>
 * offers MySQL, PostgreSQL, MSSQL databases as a service
 * manages OS & Software installation, patches and updates, backups and configuring replications, failover however needs to select and provision machines
