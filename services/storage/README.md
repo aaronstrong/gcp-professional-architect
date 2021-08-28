@@ -11,8 +11,8 @@
 |       | Cloud Datastore | Bigtable | Cloud<br>Storage | Cloud<br>SQL | Cloud<br>Spanner| BigQuery |
 |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |
 | Type      | NoSQL | NoSql Wide Column | Blob Storage | Relational<br>SQL-OLTP | Relational<br>SQL-OLTP | Relational<br>SQL-OLAP |
-| Transactions | Yes   | Single-Row     | No      | Yes :check:     | Yes :check:   | No      |
-| Complex Queries | No      | No      | No        | Yes :check:    | Yes :check:     | Yes  :check:    |
+| Transactions | Yes   | Single-Row     | No      | Yes ::check::     | Yes ::check::   | No      |
+| Complex Queries | No      | No      | No        | Yes ::check::    | Yes ::check::     | Yes  ::check::    |
 | Capacity | TBs      | PBs      | PBs      | Up to ~64TB      | PB      | PB      |
 | Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
 | Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
