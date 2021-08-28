@@ -17,8 +17,8 @@
 | Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
 | Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
 | Global :earth_americas:<br>vs<br>Regional :japan: | :japan: | :earth_americas: | :earth_americas: | :japan: | :earth_americas: | :earth_americas: |
-| Horizontal<br>Vertical | | | | | | |
-| Managed<br>vs<br>Provisioned | | | | | | |
+| Horizontal<br>Vertical | | | | Horizontal | | |
+| Managed<br>vs<br>Provisioned | | | | Provisioned |  | Managed |
 
 
 
@@ -119,8 +119,8 @@
     * User Profiles
     * Transactions based on ACID properties like refunds from a bank
 
-## BigQuery
-* provides fully managed, no-ops,  OLAP, enterprise data warehouse (EDW) with SQL and fast ad-hoc queries.
+## [BigQuery](https://cloud.google.com/bigquery)
+* provides fully managed, no-ops (serverless),  OLAP, enterprise data warehouse (EDW) with SQL and fast ad-hoc queries.
 * provides high capacity, data warehousing analytics solution
 * ideal for big data exploration and processing
 not ideal for operational or transactional databases
@@ -137,7 +137,7 @@ not ideal for operational or transactional databases
     * Data science and advanced analyses
     * Big data processing using SQL
 
-## Memorystore
+## [Memorystore](https://cloud.google.com/memorystore)
 * provides scalable, secure, and highly available in-memory service for Redis and Memcached.
 * fully managed as provisioning, replication, failover, and patching are all automated, which drastically reduces the time spent doing DevOps.
 * provides 100% compatibility with open source Redis and Memcached
