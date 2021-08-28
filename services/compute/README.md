@@ -42,25 +42,7 @@ When you configure a zonal or regional persistent disk, you can select one of th
 * <b>SSD persistent disks</b> (`pd-ssd`) are backed by solid-state drives (SSD).
 * <b>Extreme persistent disks</b> (`pd-extreme`) are backed by solid-state drives (SSD). With consistently high performance for both random access workloads and bulk throughput, extreme persistent disks are designed for high-end database workloads. Unlike other disk types, you can provision your desired IOPS. For more information, see Extreme persistent disks.
 
-### Zonal Persistent Disk
-
-#### Performance
-
-#### Reliability
+## App Engine
 
 
-### Regional Persistent Disk
-
-#### Performance
-
-#### Reliability
-
-
-### Local SSD
-
-#### Performance
-
-#### Reliability
-
-
-### Filestore
+## Google Kubernetes Engine (GKE)
