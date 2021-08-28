@@ -18,15 +18,15 @@
 | Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
 | Global :earth_americas:<br>vs<br>Regional :japan: | :japan: | :earth_americas: | :earth_americas: | :japan: | :earth_americas: | :earth_americas: |
 | Horizontal<br>Vertical | | | | | | |
-| Managed<br>vs<br>Not | | | | | | |
+| Managed<br>vs<br>Provisioned | | | | | | |
 
 
 
-Storage Flowchart
+<b>Storage Options Flowchart</b>
 
 ![](https://miro.medium.com/max/700/1*uAxoEkgJPmD_TUbcObfKeA.png)
 
-Compare Storage Options
+<b>Compare Storage Options</b>
 ![](../../images/compare-storage-in-gcp.png)
 
 ## Google Cloud Storage
