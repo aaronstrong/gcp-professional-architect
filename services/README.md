@@ -23,7 +23,7 @@ Here's the list of [services](https://cloud.google.com/products)
 ### Datastream
 ### Storage Transfer Service
 ---
-## [Networking](./networking/readme.md)
+## [Networking](./networking)
 ### Cloud CDN
 ### Cloud DNS
 ### Cloud Load Balancing
@@ -35,7 +35,7 @@ Here's the list of [services](https://cloud.google.com/products)
 ### Cloud Logging
 ### Cloud Monitoring
 ---
-## [Security](./security/README.md)
+## [Security](./security)
 ### Cloud DLP
 ### KMS
 ### Firewalls
