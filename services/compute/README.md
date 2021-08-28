@@ -21,7 +21,7 @@ Each network interface of a Compute Engine instance is associated with a subnet 
 
 Regardless of the region where you create your VM instance, the default time for your VM instance is Coordinated Universal Time (UTC).
 
-## [Storage](https://cloud.google.com/compute/docs/disks)
+### [Storage](https://cloud.google.com/compute/docs/disks)
 
 Compute Engine offers several types of storage options for your instances. Each of the following storage options has unique price and performance characteristics:
 
