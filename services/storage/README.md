@@ -1,6 +1,7 @@
 # GCP Storage Options
 
 Storage Flowchart
+
 ![](https://jayendrapatil.com/wp-content/uploads/2019/01/Google-Cloud-Storage-Options-Flowchart.png)
 
 Compare Storage Options
