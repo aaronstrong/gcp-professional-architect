@@ -1,52 +1,47 @@
 # List of Services on Exam
 Here's the list of [services](https://cloud.google.com/products)
 
-## Compute
-### [Compute Engine](./compute)
-### Preemptible VMS
-
-## Containers
-### Google Kubernetes Engine
+## [Compute](./compute)
+### Compute Engine
+#### Preemptible VMS
+### Google Kubernetes Engine (Containers)
 ### AppEngine
-
-## Data Analytics
+---
+## [Big Data / Data Analytics](./bigdata/bigdata.md)
 ### BigQuery
 ### Dataproc
-### DataFlow
+### Dataflow
 ### Pub/Sub
 ### Dataprep
 ### Data Studio
-
-## Databases
+---
+## [Storage](./storage/readme.md)
 ### Cloud BigTable
 ### Cloud Spanner
 ### Cloud SQL
 ### Memorystore
 ### Datastream
-
-## Networking
+### Storage Transfer Service
+---
+## [Networking](./networking/readme.md)
 ### Cloud CDN
 ### Cloud DNS
 ### Cloud Load Balancing
 ### Cloud NAT
 ### Hybrid Connectivity
 ### VPC
-
+---
 ## Operations
 ### Cloud Logging
 ### Cloud Monitoring
-
-## Security
+---
+## [Security](./security/README.md)
 ### Cloud DLP
 ### KMS
 ### Firewalls
 ### Secret Manager
 ### Security Command Center
-
+---
 ## Identity and Access
 ### IAM
 ### Resource Manager
-
-## Storage
-### Cloud Storage
-### Storage Transfer Service
