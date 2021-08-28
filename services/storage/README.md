@@ -17,7 +17,7 @@
 | Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
 | Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
 | Global :earth_americas:<br>vs<br>Regional :japan: | :japan: | :earth_americas: | :earth_americas: | :japan: | :earth_americas: | :earth_americas: |
-| Horizontal<br>Vertical | | | | Horizontal | | |
+| Horizontal<br>Vertical | | | | Vertial | Horizontal| |
 | Managed<br>vs<br>Provisioned | | | | Provisioned |  | Managed |
 
 
@@ -150,3 +150,29 @@ not ideal for operational or transactional databases
     * Analytics solution
 * Common Use cases
     * User session management
+
+## [Persistent Disk](https://cloud.google.com/compute/docs/disks)
+* Block storage for Compute Engine virtual machines
+* The data on each persistent disk is distributed across several physical disks.
+* Persistent disks are located independently from your virtual machine (VM) instances, so you can detach or move persistent disks to keep your data even after you delete your instances.
+* Performance:
+    * scales automatically with size
+* Disk Types:
+
+| | Zonal STD disk      | Regional STD disk | Zonal Balanced Disk | Regional Balanced disk      |
+|  ---  |  ---  |  ---  |  ---  |  ---  |
+| Storage type        | Efficient and reliable block storage | Syncrhonous replication acorss two zones      | Cost-effect and reliable block storage      | Cost-effective storage w/synchronous replicatio across 2 zones      |
+| Min cap per disk    | 10 GB      |  200GB     |  10 GB     |  10 GB     |
+| Max cap             | 64 TB      |  64 TB     |  64 TB     |  64 TB     |
+| Scope               | Zone   | Zone      | Zone      | Zone      |
+| Data<br>redundancy  | Zonal  | Multi-Zonal      |  Zonal     |   Multi-Zonal     |
+
+
+
+## [Local SSD](https://cloud.google.com/compute/docs/disks#localssds)
+* High performance, transient, local block storage
+* You must manage striping on local SSDs yourself
+* GCE automatically encrypts your ata when it is written to local SSD storage
+
+## Filestore
+* High performance file storage (NFS)
