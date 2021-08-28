@@ -17,7 +17,7 @@
 | Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
 | Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
 | Global :earth_americas:<br>vs<br>Regional :japan: | :japan: | :earth_americas: | :earth_americas: | :japan: | :earth_americas: | :earth_americas: |
-| Horizontal<br>Vertical | | | | Vertial | Horizontal| |
+| Horizontal<br>vs<br>Vertical | | | | Vertial | Horizontal| |
 | Managed<br>vs<br>Provisioned | | | | Provisioned |  | Managed |
 
 
