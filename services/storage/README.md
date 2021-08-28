@@ -1,5 +1,24 @@
 # GCP Storage Options
 
+* Structured vs Unstructured
+* Relational (SQL) vs Non-Relational (NoSQL)
+* Transactional (OLTP) vs Analytical (OLAP)
+* Fully Managed vs Requires Provisioning
+* Global vs Regional
+* Horizontal vs Vertical scaling
+
+<b>Overview</b>
+|       | Cloud Datastore | Bigtable | Cloud<br>Storage | Cloud<br>SQL | Cloud<br>Spanner| BigQuery |
+|  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |
+| Type      | NoSQL | NoSql Wide Column | Blob Storage | Relational<br>SQL-OLTP | Relational<br>SQL-OLTP | Relational<br>SQL-OLAP |
+| Transactions | Yes   | Single-Row     | No      | Yes :check:     | Yes :check:   | No      |
+| Complex Queries | No      | No      | No        | Yes :check:    | Yes :check:     | Yes  :check:    |
+| Capacity | TBs      | PBs      | PBs      | Up to ~64TB      | PB      | PB      |
+| Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
+| Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
+
+
+
 Storage Flowchart
 
 ![](https://miro.medium.com/max/700/1*uAxoEkgJPmD_TUbcObfKeA.png)
@@ -54,9 +73,12 @@ Compare Storage Options
 
 ## Cloud SQL
 
+* NoSQL
 * provides fully managed, <u>relational SQL databases</u>
 * offers MySQL, PostgreSQL, MSSQL databases as a service
 * manages OS & Software installation, patches and updates, backups and configuring replications, failover however needs to select and provision machines
+* Up to 64 TB, depending on machine type
+* HA architectures and Read Replicas are available. HA failore does impose downtime
 * Usage
     * OLTP workloads
     * Relational database
@@ -64,3 +86,19 @@ Compare Storage Options
     * Websites, blogs, and MCS
     * BI Apps
     * CRM, eCommerce
+
+## [Cloud Spanner](https://cloud.google.com/spanner#all-features)
+* Fully managed <u>Relational SQL databases</u>
+* provides cross-region, global, horizontal scalability, and availability, and ACID transactions
+* 99.999% availability for multi-regional instances
+* automatic sharding
+* supports strong consistency, including strongly consistent secondary indexes
+* database sizes exceeding > 2TB
+* 0% downtime
+* Usage:
+    * OLTP Workloads
+    * Full relational SQL support
+    * Horizontal scale up to petabytes
+* What it's good for:
+    * Financials like payment gateways that need to be 100% consistent
+
