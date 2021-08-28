@@ -16,6 +16,9 @@
 | Capacity | TBs      | PBs      | PBs      | Up to ~64TB      | PB      | PB      |
 | Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
 | Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
+| Global :earth_americas:<br>vs<br>Regional :us: | Regional :us: | Global :earth_americas: | Global :earth_americas: | Regaional :us: | Global :earth_americas: | Global :earth_americas: |
+| Horizontal<br>Vertical | | | | | | |
+| Managed<br>vs<br>Not | | | | | | |
 
 
 
@@ -102,3 +105,4 @@ Compare Storage Options
 * What it's good for:
     * Financials like payment gateways that need to be 100% consistent
 
+## Cloud Datastore
