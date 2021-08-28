@@ -2,7 +2,7 @@
 
 Storage Flowchart
 
-![](https://jayendrapatil.com/wp-content/uploads/2019/01/Google-Cloud-Storage-Options-Flowchart.png)
+![](https://miro.medium.com/max/700/1*uAxoEkgJPmD_TUbcObfKeA.png)
 
 Compare Storage Options
 ![](../../images/compare-storage-in-gcp.png)
