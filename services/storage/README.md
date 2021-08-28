@@ -106,3 +106,47 @@
     * Financials like payment gateways that need to be 100% consistent
 
 ## Cloud Datastore
+* Fully managed <b>NoSQL</b> for automatic scaling
+* encryption at rest
+* fully managed with no planned downtime
+* Atomic transactions
+* SQL-like query language
+* Firestore is the newest version of Datastore
+* Built on top of Bigtable
+* What it's good for:
+    * Designed for mobile and web apps
+    * product catalogs that provide real-time inventory
+    * User Profiles
+    * Transactions based on ACID properties like refunds from a bank
+
+## BigQuery
+* provides fully managed, no-ops,  OLAP, enterprise data warehouse (EDW) with SQL and fast ad-hoc queries.
+* provides high capacity, data warehousing analytics solution
+* ideal for big data exploration and processing
+not ideal for operational or transactional databases
+* provides SQL interface
+* Usage Patterns
+    * OLAP workloads up to petabyte-scale
+    * Big data exploration and processing
+    * Reporting via business intelligence (BI) tools
+* Anti Patterns
+    * Not an ideal storage option for transactional data or OLTP – Use Cloud SQL or Cloud Spanner instead
+    * Low-latency read/write access – Use Bigtable instead
+* Common Use cases
+    * Analytical reporting on large data
+    * Data science and advanced analyses
+    * Big data processing using SQL
+
+## Memorystore
+* provides scalable, secure, and highly available in-memory service for Redis and Memcached.
+* fully managed as provisioning, replication, failover, and patching are all automated, which drastically reduces the time spent doing DevOps.
+* provides 100% compatibility with open source Redis and Memcached
+* is protected from the internet using VPC networks and private IP and comes with IAM integration
+* Usage Patterns
+    * Lift and shift migration of applications
+    * Low latency data caching and retrieval
+* Anti Patterns
+    * Relational or NoSQL database
+    * Analytics solution
+* Common Use cases
+    * User session management
