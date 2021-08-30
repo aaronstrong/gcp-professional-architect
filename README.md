@@ -11,3 +11,6 @@
 
 ## Services
 [Google Services](./services)
+
+## Community
+* [jayendrapatil.com](https://jayendrapatil.com/)

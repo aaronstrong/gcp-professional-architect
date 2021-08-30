@@ -42,7 +42,40 @@ When you configure a zonal or regional persistent disk, you can select one of th
 * <b>SSD persistent disks</b> (`pd-ssd`) are backed by solid-state drives (SSD).
 * <b>Extreme persistent disks</b> (`pd-extreme`) are backed by solid-state drives (SSD). With consistently high performance for both random access workloads and bulk throughput, extreme persistent disks are designed for high-end database workloads. Unlike other disk types, you can provision your desired IOPS. For more information, see Extreme persistent disks.
 
-## App Engine
+## [App Engine](https://cloud.google.com/appengine/docs/flexible/python/an-overview-of-app-engine)
 
+* Google PaaS offering for compute
+* Considered a serverless option because you bring your code. You don't have to worry about underlying infrastructure.
+* App Engine is a top-level container that includes the service, version and instance that make up your app
+* All resources are created in a region. <b>Cannot change once deployed</b>
+* Each GCP Project can contain only a single App Engine app.
+* Great for microservices
+* Here's a diagram that illustrates App Engine app running multiple services.
+![](https://cloud.google.com/appengine/docs/flexible/python/an-overview-of-app-engine)
+
+### Services
+* Think of services like [microservices](https://en.wikipedia.org/wiki/Microservices)
+* You can run whole app in a single service, or design and deploy multiple services
+* Each services consists of the source code from your app
+
+### Versions
+* Quickly switch between differen versions of that app for rollbacks and testing.
+* You can route to one or more specific version by migrating or splitting traffic.
+
+### Instances
+* AE will scale the underlying instances to match the load
+---
+### [Standard vs Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments#the_app_engine_environments)
+
+| Standard  | Flexible      |
+|  ---  |  ---  |
+| Application instances run in a sandbox, using the runtime envrionment of a supported language.  | Application instances run within Docker on GCE.      |
+| Applications that need to deal with rapid scaling.      | Applications that receive consistent traffic, experience regular traffic influctions, or meet parameters for scaling up and down gradually.      |
+| Support programming languages:<br>*Python 2.7-3.9<br> * Java 8, 11<br> * Node.js 10,12,14,16<br> * PHP<br> * Ruby<br> * Go  | Support programming languages:<br> * Python, Java, Node.js, Go, Ruby, PHP or <br>.NET</b.>      |
+| Run for free or very low cost      |       |
+
+
+
+### Versions
 
 ## Google Kubernetes Engine (GKE)
