@@ -64,6 +64,9 @@ When you configure a zonal or regional persistent disk, you can select one of th
 
 ### Instances
 * AE will scale the underlying instances to match the load
+
+### Versions
+
 ---
 ### [Standard vs Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments#the_app_engine_environments)
 
@@ -71,7 +74,7 @@ When you configure a zonal or regional persistent disk, you can select one of th
 |  ---  |  ---  |
 | Application instances run in a sandbox, using the runtime envrionment of a supported language.  | Application instances run within Docker on GCE.      |
 | Applications that need to deal with rapid scaling.      | Applications that receive consistent traffic, experience regular traffic influctions, or meet parameters for scaling up and down gradually.      |
-| Support programming languages:<br>*Python 2.7-3.9<br> * Java 8, 11<br> * Node.js 10,12,14,16<br> * PHP<br> * Ruby<br> * Go  | Support programming languages:<br> * Python, Java, Node.js, Go, Ruby, PHP or <br>.NET</b.>      |
+| Support programming languages:<br>* Python 2.7-3.9<br> * Java 8, 11<br> * Node.js 10,12,14,16<br> * PHP<br> * Ruby<br> * Go  | Support programming languages:<br> * Python, Java, Node.js, Go, Ruby, PHP or <b>.NET</b>  |
 | Run for free or very low cost      | Access the resources or services of your google Cloud project that reside in GCE network.      |
 
 #### Compare Features
@@ -89,6 +92,6 @@ When you configure a zonal or regional persistent disk, you can select one of th
 
 
 
-### Versions
+
 
 ## Google Kubernetes Engine (GKE)
