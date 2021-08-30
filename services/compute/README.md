@@ -89,6 +89,8 @@ When you configure a zonal or regional persistent disk, you can select one of th
 ---
 ### [Standard vs Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments#the_app_engine_environments)
 
+<b>Use cases</b>
+
 | Standard  | Flexible      |
 |  ---  |  ---  |
 | Application instances run in a sandbox, using the runtime envrionment of a supported language.  | Application instances run within Docker on GCE.      |
