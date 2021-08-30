@@ -74,6 +74,19 @@ When you configure a zonal or regional persistent disk, you can select one of th
 | Support programming languages:<br>*Python 2.7-3.9<br> * Java 8, 11<br> * Node.js 10,12,14,16<br> * PHP<br> * Ruby<br> * Go  | Support programming languages:<br> * Python, Java, Node.js, Go, Ruby, PHP or <br>.NET</b.>      |
 | Run for free or very low cost      | Access the resources or services of your google Cloud project that reside in GCE network.      |
 
+Compare Features
+
+|  Feature   | Standard       | Flexible      |
+|  ---  |  ---  |  ---  |
+| Instance startup  | Seconds    | Minutes       |
+| Max request timeout    | Depends on runtime and type of scaling      |  60 min      |
+| Scale to zero      | Yes      | No, minimum 1 instance       |
+| Modifying the runtime | No | Yes (through Dockerfile) |
+| Deployment time | Secodns | Minutes |
+| Background processes | No | Yes |
+| SSH Debug | No | Yes |
+
+
 
 
 ### Versions
