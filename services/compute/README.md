@@ -1,5 +1,4 @@
-# Google Compute Instances
-[Official documentation](https://cloud.google.com/compute/docs/concepts)
+# [Google Compute Instances](https://cloud.google.com/compute/docs/concepts)
 
 Compute Engine instances can run the public images for Linux and Windows Server that Google provides as well as private custom images that you can create or import from your existing systems.
 
@@ -110,9 +109,35 @@ When you configure a zonal or regional persistent disk, you can select one of th
 | Background processes | No | Yes |
 | SSH Debug | No | Yes |
 
+# [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview)
+
+![](https://cloud.google.com/kubernetes-engine/images/cluster-architecture.svg)
+
+* Container orchestrator that's managed by Google
+* Powered by Kubernetes, open source cluster management system.
+* Uses Google's Load-Balacing
+* [Node pools](##Node-Pools) to designate subsets of nodes within a cluster for additional flexibility
+* Automatic Scaling of your cluster's node instance count
+* Automatic upgrades for your cluster's node software
+* Node auto-repair to maintain node health and availability
+* Logging and monitoring with Google's Cloud operations suite for visibility
+
+## Node Pools
+
+* Is a group of nodes within a cluster that all have the same configuration.
+* You can resize node pools in a cluster by adding/removing nodes.
+* Worker machines that run your containerized applications and other workloads
+* Each node is managed from the control plane, which receives updates from each node.
+
+### [Adding a node pool](https://cloud.google.com/kubernetes-engine/docs/how-to/node-pools#add)
+
+```bash
+gcloud container node-pools create` POOL_NAME` --cluster `CLUSTER_NAME`
+```
 
 
 
+# Cloud Functions
 
 
-## Google Kubernetes Engine (GKE)
+# Cloud Run
