@@ -129,10 +129,17 @@ When you configure a zonal or regional persistent disk, you can select one of th
 * Worker machines that run your containerized applications and other workloads
 * Each node is managed from the control plane, which receives updates from each node.
 
-### [Adding a node pool](https://cloud.google.com/kubernetes-engine/docs/how-to/node-pools#add)
+### [Useful Node Pool Commands](https://cloud.google.com/kubernetes-engine/docs/how-to/node-pools#add)
 
+Create a node Pool
 ```bash
 gcloud container node-pools create` POOL_NAME` --cluster `CLUSTER_NAME`
+```
+
+Resize a node pool
+```bash
+gcloud container clusters resize `CLUSTER_NAME` --node-pool `POOL_NAME` \
+    --num-nodes `NUM_NODES`
 ```
 
 
