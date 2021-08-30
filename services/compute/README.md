@@ -60,12 +60,30 @@ When you configure a zonal or regional persistent disk, you can select one of th
 
 ### Versions
 * Quickly switch between differen versions of that app for rollbacks and testing.
-* You can route to one or more specific version by migrating or splitting traffic.
+* You can route to one or more specific version by migrating or [splitting traffic](###Splitting)
 
 ### Instances
 * AE will scale the underlying instances to match the load
 
-### Versions
+### Splitting
+* Used to specify a percentage of traffic across two or more of the versions within a service.
+* Allows to conduct A/B testing between versions and control over rolling out features
+* Traffic splitting is applied to URLs that do not explicitly target a version.
+* To disable traffic splitting, migrate all traffic to a single version
+* Must choose whether to split traffic by using either an IP address or HTTP cookies.
+    * Splitting by IP is easier
+    * Splitting by HTTP cookies is more precise.
+
+#### IP Splitting
+* IP Splitting hashes the IP address to a value between `0-999`, and uses that number to route the request
+* Limitations:
+    * IP addresses are sticky, not permanent.
+    * IF you need to send internal requests between apps, you should use cookie splitting
+
+#### Cookie Splitting
+* Cookie splitting, the application looks in the HTTP request header for a cookie named `GOOGAPPUID` which contains a value between `0-999`.
+    * If the cookie exists, the value is used to route the request. 
+    * If there is no such cookie, the request is routed randomly.
 
 ---
 ### [Standard vs Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments#the_app_engine_environments)
