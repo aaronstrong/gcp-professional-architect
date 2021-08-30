@@ -122,6 +122,14 @@ When you configure a zonal or regional persistent disk, you can select one of th
 * Node auto-repair to maintain node health and availability
 * Logging and monitoring with Google's Cloud operations suite for visibility
 
+## Cluster Types
+* Autopilot: Autopilot mode, the cluster configuration options are made for you.
+* Standard: You determine the configurations needed for your production workloads.
+
+## Availability Type
+* Zonal Clusters - Has a single control plane in a single zone.
+* Regional Clusters - 
+
 ## Node Pools
 
 * Is a group of nodes within a cluster that all have the same configuration.
