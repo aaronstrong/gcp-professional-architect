@@ -1,4 +1,4 @@
-# Game Servers
+# [Game Servers](https://cloud.google.com/architecture/cloud-game-infrastructure)
 
 **Conceptual Design**
 
@@ -36,6 +36,11 @@ The backend components of the gaming architecture include:
     - Profile
     - Feeds
     - Presense
+
+### Dedicated Game Servers
+
+Provide the game logic. To minimize latency perceived by the user, client game apps typically communicate directly with the dedicated game servers. This makes them part of the frontend service architecture.
+
 
 ## Backend
 
