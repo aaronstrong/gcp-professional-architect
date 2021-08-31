@@ -1,18 +1,18 @@
 # List of Services on Exam
 Here's the list of [services](https://cloud.google.com/products)
 
-## [Compute](./compute)
+### [Compute](./compute)
 ---
-## [Big Data / Data Analytics](./bigdata/bigdata.md)
+### [Big Data / Data Analytics](./bigdata/bigdata.md)
 ---
-## [Storage](./storage/)
+### [Storage](./storage/)
 ---
-## [Networking](./networking)
+### [Networking](./networking)
 ---
-## Operation
+### Operation
 ---
-## [Security](./security)
+### [Security](./security)
 ---
-## Identity and Access
+### Identity and Access
 ---
-## [Machine Learning](./ml)
+### [Machine Learning](./ml)
