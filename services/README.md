@@ -16,3 +16,5 @@ Here's the list of [services](https://cloud.google.com/products)
 ### Identity and Access
 ---
 ### [Machine Learning](./ml)
+---
+### [Gaming](./gaming)

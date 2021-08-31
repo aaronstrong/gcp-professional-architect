@@ -33,3 +33,13 @@
 1. Customize your training job.
 1. Submit the training job, and view logs to monitor its progress and status.
 1. When job successfully completed, you can deploy your trained model on AI platform training to set up a prediction server and get predictions on new data.
+
+### Prediction service
+
+* A service that allows you to serve predictions based on a trained model, whether or not the mode was trained on AI platform.
+
+### Data Labeling service
+
+* Request human labeling for a dataset that you plan to use to train a custom machine learning model.
+* You can submit a request to label your video, image, or text data.
+
