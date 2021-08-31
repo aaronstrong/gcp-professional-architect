@@ -18,26 +18,26 @@ public cloud provider.
 
 ## Business Requirements
 
-HRL owner's want to expand predictive capabilities and reduce latency for new markets/customers.
+HRL owner's want to `expand predictive capabilities` and `reduce latency for new markets/customers`.
 
-* Support ability to expose the predictive models to partners.
-* Increase predictive capabilities during and before races:
+* Support ability to `expose the predictive models to partners`.
+* `Increase predictive capabilities during and before races`:
     * Race results
     * Mechanical failures
     * Crowd sentiment
 * Increase telemetry and create additional insights.
-* Measure fan engagement with new predictions.
-* Enhance global availability and quality of the broadcasts.
-* Increase the number of concurrent viewers.
-* Minimize operational complexity.
+* `Measure fan engagement with new predictions`.
+* `Enhance global availability and quality of the broadcasts`.
+* `Increase the number of concurrent viewers`. <-- Scale
+* `Minimize operational complexity`. <-- Managed Services as much as possible
 * Ensure compliance with regulations.
 * Create a merchandising revenue stream.
 
 ## Technical Requirements
 
 * Maintain or increase prediction throughput and accuracy.
-* Reduce viewer latency.
-* Increase transcoding performance.
+* `Reduce viewer latency`.
+* `Increase transcoding performance`.
 * Create real-time analytics of viewer consumption patterns and engagement.
 * Create a data mart to enable processing of large volumes of race data.
 
@@ -47,18 +47,22 @@ We listen to our fans, and they want enhanced video streams that include predict
 
 ## My Thoughts
 
+There are differnet types of architectures to achieve the goals outlines in the Case Study. Below ae some of my thoughts on what services to use.
+
+Goals
+* `Reduce viewer latency`
+* `Minimize operational complexity`
+
+Solutions
+* Make use of the CDN to enhance global availability
+* Use GCS which is a global resource to upload videos and
+
 > Content Delivery Network
     * Enhance global availability and quality of the broadcasts.
     * Serve content closer to the user
 
-
 > Global Load Balancer
     * Enhance global availability and quality of the broadcasts.
-
-
-> Apigee
-    * Support ability to expose the predictive models to partners.
-
 
 > Pub/Sub
     * Create real-time analytics of viewer consumption patterns and engagement.
@@ -76,8 +80,6 @@ We listen to our fans, and they want enhanced video streams that include predict
 > AppEngine
 
 
-> Compute
-
 > Google Cloud Storage
     * Existing content is stored in an object storage service on their existing public cloud provider.
 
@@ -92,3 +94,6 @@ Build a streaming video analytics pipeline:
 
 Processing User-generated content using Video Intelligence and Cloud Vision API
 ![](https://cloud.google.com/architecture/images/processing-architecture.svg)
+
+Vidoe Transcoder
+![](https://camo.githubusercontent.com/9112c0c92e2d56b55380def1de257c61568600d5391579cf94a597ba1a74a4f4/68747470733a2f2f726f636b6574736561742d63646e2e73332d73612d656173742d312e616d617a6f6e6177732e636f6d2f6a7570697465722d7472616e73636f64652d6469616772616d2e706e67)

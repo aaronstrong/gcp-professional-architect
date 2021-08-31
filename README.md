@@ -14,3 +14,5 @@
 
 ## Community
 * [jayendrapatil.com](https://jayendrapatil.com/)
+* [sathishvj](https://github.com/sathishvj/awesome-gcp-certifications)
+* [GCP Architecture Center](https://cloud.google.com/solutions)
