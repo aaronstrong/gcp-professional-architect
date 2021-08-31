@@ -6,7 +6,7 @@
 | **Length**: | 2 hours |
 | **Case Studies**: | There are a total of 4 case studies. 2 brand new ones, and 2 that have been updated. |
 | **Exam format**: | Multiple choice and select. Test can be taken at a testing center or at home. |
-| **Google's Sample Questions** | [Questions](https://cloud.google.com/certification/sample-questions/cloud-architect) |
+| **Sample Questions** | [Questions](https://cloud.google.com/certification/sample-questions/cloud-architect) |
 | **Schedule Exam**: | https://www.webassessor.com/googlecloud/ |
 | **Official Blueprint**: | [Blue Print](https://cloud.google.com/certification/guides/professional-cloud-architect)
 
