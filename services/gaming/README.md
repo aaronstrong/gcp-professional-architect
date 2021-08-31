@@ -40,7 +40,25 @@ The backend components of the gaming architecture include:
 ## Backend
 
 * External clients cannot talk directly
-* Provides a way to store and access data, like game state data in a database or logging and analytics events in a data aw
+* Provides a way to store and access data, like game state data in a database or logging and analytics events in a data warehouse
+
+### Game Database
+
+* The database that holds the game-world state and player progression data.
+* Game database design decisions:
+    * **Make an informed decision** : Understand the type and frequency of the database access from your game at your expected player base, and at 10x those estimations.
+    * **Don't assume one solution is the right solution**: Relational DB for in purhcases and storing game state in a NoSQL instance. NoSQL is better at handling high-volume, low-latency workloads while transactional databases provide guaranteed transactions.
+    * **Back up your data**: Regular and geographically distribute backups
+
+### Analytics
+
+Both online services and game clients can send analytics and telemetry events to a common collection point, where the events are stored in a database. 
+
+
+
+
+
+
 
 
 
