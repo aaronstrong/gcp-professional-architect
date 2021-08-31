@@ -123,12 +123,24 @@ When you configure a zonal or regional persistent disk, you can select one of th
 * Logging and monitoring with Google's Cloud operations suite for visibility
 
 ## Cluster Types
-* Autopilot: Autopilot mode, the cluster configuration options are made for you.
-* Standard: You determine the configurations needed for your production workloads.
+* [**Autopilot**](https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-architecture): Autopilot mode, the cluster configuration options are made for you.
+* [**Standard**](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture): You determine the configurations needed for your production workloads.
+* [**Private Clusters**](https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept): Use nodes that do not have external IP addresses. Has both a control plane private endpoint and a control plane public endpoint. Must specify a unique `/28` IP address range for the control plane's private endpoint, and you can choose to disable the control plane's public endpoint.
 
 ## Availability Type
-* Zonal Clusters - Has a single control plane in a single zone.
-* Regional Clusters - 
+* **Zonal Clusters** - Has a single control plane in a single zone.
+    1. **Single-zone Clusters**: has a single control plane running in one zone. This control plane manages workloads on nodes running in the same zone.
+    1. **Multi-zonal Clusters**: has a single replica of the control plane running in a single zone, and has nodes running in multiple zones. During upgrades or an outage, workloads still run. However the cluster, its nodes and workloads cannot be configured during this time.
+* **Regional Clusters** - Has multiple replicas of the control plane, running in multiple zones in a region. Nodes can run in multiple zones or a single zone. By default, GKE replicates each node pool across three zones of the control plane's region.
+
+### Create a zonal cluster
+
+```bash
+gcloud container clusters create `CLUSTER_NAME` \
+    --release-channel `CHANNEL` \
+    --zone `COMPUTE_ZONE` \
+    --node-locations `COMPUTE_ZONE`,`COMPUTE_ZONE1`
+```
 
 ## Node Pools
 
@@ -150,9 +162,46 @@ gcloud container clusters resize `CLUSTER_NAME` --node-pool `POOL_NAME` \
     --num-nodes `NUM_NODES`
 ```
 
+## Istio
+
+* open service mesh that provides a uniform way to connect, manage, and secure microservices
+* Managing traffic flows between services, enforcing access policies, and aggregating telemetry data
+* Benefits:
+    - Fine-grained control of traffic behavior
+    - A configurable policy layer and API that supports access controls, rate limits, and quotas
+    - Automatic metrics, logs, and traces for all traffic within a cluster, including cluster ingress and egress.
+    - Secure service-to-service communication in a cluster with strong identity-based authentication and authorization.
+
+## [Anthos](https://cloud.google.com/anthos/docs/concepts/overview)
+
+* Application management platform providing consistent development and operations experience for cloud and on-premises environments.
+
+### Computing Environment
+
+* Kubernetes has two main parts: the control plane and the node components. How the environments host the control plane and node components for GKE is described below.
+
+    * **Anthos on Google Cloud**
+    
+        With Anthos on Google Cloud, Google Cloud hosts the control plane, and the Kubernetes API server is the only control-plane component accessible to customers. GKE manages the node components in the customer's project using instances in Compute Engine.
+
+    * **Anthos on-prem**
+
+        With Anthos clusters on VMware, all components are hosted in the customer's on-prem virtualization environment.
+
+    * **Anthos on AWS**
+    
+        With Anthos clusters on AWS, all components are hosted in the customer's AWS environment.
 
 
 # Cloud Functions
+* Scalable pay-as-you-go functions as a service (FaaS) to run your code without server management
 
 
 # Cloud Run
+* Develop and deploy highly scalable containerized applications on a fully managed serverless platform.
+* Any language, any library, any binary
+* No infrastructure to manage
+* Scales up or down from zero to N depending on traffic
+* Services are regional, automatically replicated across multiple zones
+* Mount secrets from Secret Manager.
+* Expose publicily to receive web requests
