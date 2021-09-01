@@ -21,6 +21,18 @@
 | Managed<br>vs<br>Provisioned | | | | Provisioned |  | Managed |
 
 
+|       |   Relational    |  Relational     |  NoSQL/Nonrelational     |  NoSQL/Nonrelational  | NoSQL/Nonrelational       | NoSQL/Nonrelational      |
+|  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |
+|       | Cloud Spanner  | Cloud SQL    | Bigtable      | Firestore   | Firebase Realtime      | Memorystore      |
+| Scale insurance  | :heavy_check_mark: | | :heavy_check_mark: | :heavy_check_mark: | | |
+| Data distribution| Regional or Global | Zonal | Regional or Global      | Regional or Global |Zonal | Zonal      |
+| Replica consistency | strong  | strong | eventual | strong | n/a | eventual |
+| Multi-primary | :heavy_check_mark:      |       | :heavy_check_mark:      |  :heavy_check_mark:     |       |       |
+
+
+
+
+
 
 <b>Storage Options Flowchart</b>
 

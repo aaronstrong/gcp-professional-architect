@@ -1,3 +1,17 @@
+# GCP Compare Compute Options
+
+|       | IaaS  | Containers | Containers      | PaaS     | PaaS      | FaaS      |
+|  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |
+|       | GCE   | GKE   | Cloud Run     | App Engine<br>Standard| App Engine<br>Flexible | Cloud<br>Functions      |
+| Scaling               | VM Image<br>Autoscale | Cluster      | Container<br>Fully managed<br>scale to zero  | App<br>Autoscale managed<br>scale to zero       | App or Container<br>Autoscale managed       | Function<br>Scale to zero       |
+| Language Support      | Any      | Any      | Any      | Python, Node.js, Go, Java, PHP       | Python, Node.js, Go, Java, PHP, Ruby, .Net      | Python, Node.js, Go      |       
+| Background Processes  | Yes      | Yes      | No      |Support for basic and manual scaling mode |Yes and SSH debug       |  No     |       
+| Request Timeout       | None      | None      | 15 minutes    | 1 minute      | 60 minutes       | 9 minutes      |       
+| Other features        | Persistent disks<br>Websockets<br>TPU/GPU access      | Persistent disks<br>Websockets<br>TPU/GPU access      | Serverless container    | Millisecond startup<br>No writing to local disk      |  Minutes startup<br>Able to install 3rd party binaries     | Serverless      |       
+| Use Cases             | Lift&Shift<br>on-premises and monolith workloads      | Container Workloads       |Container Workloads       |  Scalable web apps<br>mobile backend apps     | Scalable web apps<br>mobile backend apps      | Event driven and data<br>processing apps      |       
+
+
+
 # [Google Compute Instances](https://cloud.google.com/compute/docs/concepts)
 
 Compute Engine instances can run the public images for Linux and Windows Server that Google provides as well as private custom images that you can create or import from your existing systems.

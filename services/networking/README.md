@@ -10,3 +10,10 @@ Networking Tiers Decision Tree
 
 Load Balancer Flow chart
 ![](https://cloud.google.com/load-balancing/images/choose-lb.svg)
+
+GCP Hybrid Connectivity Decision Tree
+![](../../images/gcp-hybrid-connectivity-options-decision-tree.png)
+![](https://jayendrapatil.com/wp-content/uploads/2021/05/Google-Cloud-Hydrid-Connectivity-Decision-Tree.png)
+
+GCP Hybrid Connectivity Options
+![](https://jayendrapatil.com/wp-content/uploads/2021/05/Google-Cloud-Hybrid-Connectivity-Options.png)

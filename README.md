@@ -25,3 +25,5 @@
 | [Google Cloud Certification Catalog](https://jayendrapatil.com/#Google_Cloud_Certification_Catalog) | Jayendar's Blog |
 | [Github GCP Links](https://github.com/sathishvj/awesome-gcp-certifications) | Sathishvj |
 | [GCP Architecture Center](https://cloud.google.com/solutions) | Google |
+| [1.5Hours of GCP Professional Architect Cert Prep](https://www.youtube.com/watch?v=2DydzKPGlhI) | IT Cheer Up YouTube Video |
+| [GCP Full 8 hour video](https://www.youtube.com/watch?v=MgNBh1vtncU) | Cloud9 Lessons |
