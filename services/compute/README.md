@@ -2,7 +2,7 @@
 
 |       | IaaS  | Containers | Containers      | PaaS     | PaaS      | FaaS      |
 |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |
-|       | GCE   | GKE   | Cloud Run     | App Engine<br>Standard| App Engine<br>Flexible | Cloud<br>Functions      |
+|       | [GCE](#GCE)   | [GKE](#GKE)   | Cloud Run     | App Engine<br>Standard| App Engine<br>Flexible | Cloud<br>Functions      |
 | Scaling               | VM Image<br>Autoscale | Cluster      | Container<br>Fully managed<br>scale to zero  | App<br>Autoscale managed<br>scale to zero       | App or Container<br>Autoscale managed       | Function<br>Scale to zero       |
 | Language Support      | Any      | Any      | Any      | Python, Node.js, Go, Java, PHP       | Python, Node.js, Go, Java, PHP, Ruby, .Net      | Python, Node.js, Go      |       
 | Background Processes  | Yes      | Yes      | No      |Support for basic and manual scaling mode |Yes and SSH debug       |  No     |       
@@ -12,9 +12,9 @@
 
 
 
-# [Google Compute Instances](https://cloud.google.com/compute/docs/concepts)
+# [GCE](https://cloud.google.com/compute/docs/concepts)
 
-Compute Engine instances can run the public images for Linux and Windows Server that Google provides as well as private custom images that you can create or import from your existing systems.
+Google Compute Engine instances can run the public images for Linux and Windows Server that Google provides as well as private custom images that you can create or import from your existing systems.
 
 You can choose the machine properties of your instances, such as the number of virtual CPUs and the amount of memory, by using a set of predefined machine types or by creating your own custom machine types.
 
@@ -123,7 +123,7 @@ When you configure a zonal or regional persistent disk, you can select one of th
 | Background processes | No | Yes |
 | SSH Debug | No | Yes |
 
-# [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview)
+# [GKE](https://cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview)
 
 ![](https://cloud.google.com/kubernetes-engine/images/cluster-architecture.svg)
 
