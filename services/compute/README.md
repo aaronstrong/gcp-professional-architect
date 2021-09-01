@@ -176,9 +176,40 @@ gcloud container clusters resize `CLUSTER_NAME` --node-pool `POOL_NAME` \
     --num-nodes `NUM_NODES`
 ```
 
-## Istio
+## Networking
 
-* open service mesh that provides a uniform way to connect, manage, and secure microservices
+* **ClusterIP**: The IP address assigned to a Service. This address is stable for the lifetime of the Service.
+* **Pod IP**: The IP address assigned to a given Pod. This is ephemeral
+* **Node IP**: The IP address assigned to a given node.
+
+### Networking inside the cluster
+
+#### IP allocation
+* Each node get's an IP from the cluster's VPC. This IP is the node's connection to the rest of the cluster like to the Kubernetes API server.
+* Each node has a pool of IP addresses that GKE assigns to Pods running on the node.
+* Each Pod has a single IP address assigned from the Pod CIDR range on the node.
+* Each Service has an IP address, called the ClusterIP, assigned from the cluster's VPC network.
+
+#### Pods
+A Pod runs one or more containers. Zero or more Pods run on a node. Each node in the cluster is part of a node pool. Pods can attach to external storage volumes and other custom resources.
+
+Kubernetes assigns an IP address (the Pod IP) to the virtual network interface in the Pod's network namespace from a range of addresses reserved for Pods on the node (secondary addresses). A container running in a Pod uses the Pod's network namespace. All containers in the Pod see this same network interface. Each container's localhost is connected, through the Pod, to the node's physical network interface, such as `eth0`.
+
+#### Services
+
+In Kubernetes, you can assign arbitrary key-value pairs called labels to any Kubernetes resource. Kubernetes uses labels to group multiple related Pods into a logical unit called a Service. A Service has a stable IP address and ports, and provides load balancing among the set of Pods whose labels match all the labels you define in the label selector when you create the Service.
+
+![](https://cloud.google.com/kubernetes-engine/images/networking-overview_two-services.png)
+
+### Networking outside the cluster
+
+* **External load balancers** manage traffic coming from outside the cluster and outside your Google Cloud VPC network. They use forwarding rules associated with the Google Cloud network to route traffic to a Kubernetes node.
+* **Internal load balancers** manage traffic coming from within the same VPC network. Like external load balancers, they use forwarding rules associated with the Google Cloud network to route traffic to a Kubernetes node.
+* **HTTP(S) Load Balancers** are specialized external load balancers used for HTTP(S) traffic. They use an Ingress resource rather than a forwarding rule to route traffic to a Kubernetes node.
+
+## [Istio](https://cloud.google.com/istio/docs/istio-on-gke/overview)
+
+* Open service mesh that provides a uniform way to connect, manage, and secure microservices
 * Managing traffic flows between services, enforcing access policies, and aggregating telemetry data
 * Benefits:
     - Fine-grained control of traffic behavior
