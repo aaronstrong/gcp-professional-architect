@@ -1,5 +1,7 @@
 # Google's Professional Cloud Architect
 
+**General Information about the Exam**
+
 |  |  |
 |--|--|
 | **Link**: | 	https://cloud.google.com/certification/cloud-architect/ |
@@ -11,6 +13,11 @@
 | **Schedule Exam**: | https://www.webassessor.com/googlecloud/ |
 | **Official Blueprint**: | [Blue Print](https://cloud.google.com/certification/guides/professional-cloud-architect)
 
+**My Notes and Labs for the Exam**
+
+Here are some of my notes I recorded while studying for the exam.
+
+I also created labs for testing my knowledge.
 
 |  |  |
 |--|--|
@@ -19,6 +26,8 @@
 
 
 ## Community Posts
+
+There's a lot of usefuly information from the community. Here are links I used to help me during my studying.
 
 | Title & Link | Author |
 | ------------ | ------ |
