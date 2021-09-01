@@ -11,8 +11,12 @@
 | **Schedule Exam**: | https://www.webassessor.com/googlecloud/ |
 | **Official Blueprint**: | [Blue Print](https://cloud.google.com/certification/guides/professional-cloud-architect)
 
-## Services
-[Google Services](./services)
+
+|  |  |
+|--|--|
+| **My Notes on the Exam** | :notebook: [Google Services](./services) |
+| **My own labs for the Exam** | :microscope: [Labs](./labs) |
+
 
 ## Community Posts
 
