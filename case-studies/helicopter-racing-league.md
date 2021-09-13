@@ -60,7 +60,7 @@ Solutions
 > Content Delivery Network
 
 * Enhance global availability and quality of the broadcasts.
-* Serve content closer to the user
+* CDN can help serve content closer to the user and meet the business goals by `reducing latency for new customers.`
 
 > Global Load Balancer
     * Enhance global availability and quality of the broadcasts.
