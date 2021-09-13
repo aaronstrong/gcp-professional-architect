@@ -58,6 +58,7 @@ Solutions
 * Use GCS which is a global resource to upload videos and
 
 > Content Delivery Network
+
     * Enhance global availability and quality of the broadcasts.
     * Serve content closer to the user
 
