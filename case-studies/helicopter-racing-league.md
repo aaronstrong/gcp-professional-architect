@@ -13,8 +13,7 @@ HRL is a public cloud first company with the mission-critical applications runni
 * Existing content is stored in an object storage service on their existing public cloud
 provider.
 * Video encoding and transcoding is performed on VMs created for each job.
-* Race predictions are performed using TensorFlow running on VMs in the current
-public cloud provider.
+* Race predictions are performed using TensorFlow running on VMs in the current public cloud provider.
 
 ## Business Requirements
 
@@ -62,27 +61,37 @@ Solutions
 * Enhance global availability and quality of the broadcasts.
 * CDN can help serve content closer to the user and meet the business goals by `reducing latency for new customers.`
 
+> Google Cloud Storage
+
+* Existing content is stored in an object storage service on their existing public cloud provider.
+
 > Global Load Balancer
-    * Enhance global availability and quality of the broadcasts.
+
+* Enhance global availability and quality of the broadcasts.
 
 > Pub/Sub
-    * Create real-time analytics of viewer consumption patterns and engagement.
+
+* Create real-time analytics of viewer consumption patterns and engagement.
 
 
 > BigQuery
-    * Create a data mart to enable processing of large volumes of race data.
-    * Create real-time analytics of viewer consumption patterns and engagement.
+
+* Create a data mart to enable processing of large volumes of race data.
+* Create real-time analytics of viewer consumption patterns and engagement.
 
 
 > Dataflow
-    * Create real-time analytics of viewer consumption patterns and engagement.
+
+* Create real-time analytics of viewer consumption patterns and engagement.
 
 
 > AppEngine
 
 
-> Google Cloud Storage
-    * Existing content is stored in an object storage service on their existing public cloud provider.
+> [Transcoder API](https://cloud.google.com/transcoder/docs/concepts/overview)
+
+* Make use of the transcoder API to `increase transcoding performance`.
+* Transcoder API can help configure low-level encoding parameters like bitrate for `quality of videos`.
 
 > Video Intellignece API
     * Create real-time analytics of viewer consumption patterns and engagement.
