@@ -47,7 +47,7 @@ We listen to our fans, and they want enhanced video streams that include predict
 
 ## My Thoughts
 
-There are differnet types of architectures to achieve the goals outlines in the Case Study. Below ae some of my thoughts on what services to use.
+There are differnet types of architectures to achieve the goals outlines in the Case Study. Below are some of my thoughts on what services to use.
 
 Goals
 * `Reduce viewer latency`
