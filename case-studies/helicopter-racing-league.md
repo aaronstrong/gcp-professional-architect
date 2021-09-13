@@ -59,8 +59,8 @@ Solutions
 
 > Content Delivery Network
 
-    * Enhance global availability and quality of the broadcasts.
-    * Serve content closer to the user
+* Enhance global availability and quality of the broadcasts.
+* Serve content closer to the user
 
 > Global Load Balancer
     * Enhance global availability and quality of the broadcasts.
