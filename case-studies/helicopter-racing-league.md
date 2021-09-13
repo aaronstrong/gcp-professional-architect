@@ -20,7 +20,7 @@ provider.
 HRL owner's want to `expand predictive capabilities` and `reduce latency for new markets/customers`.
 
 * Support ability to `expose the predictive models to partners`.
-* `Increase predictive capabilities during and before races`:
+* `Increase predictive capabilities during and before races`: <-- Sounds like Machine Learning
     * Race results
     * Mechanical failures
     * Crowd sentiment
@@ -65,28 +65,25 @@ Solutions
 
 * Existing content is stored in an object storage service on their existing public cloud provider.
 
-> Global Load Balancer
-
-* Enhance global availability and quality of the broadcasts.
-
 > Pub/Sub
 
 * Create real-time analytics of viewer consumption patterns and engagement.
-
 
 > BigQuery
 
 * Create a data mart to enable processing of large volumes of race data.
 * Create real-time analytics of viewer consumption patterns and engagement.
+* Is the data warehouse.
 
+> Datastore
+
+* NoSQL database to house the data.
+* Provides quick lookups
 
 > Dataflow
 
-* Create real-time analytics of viewer consumption patterns and engagement.
-
-
-> AppEngine
-
+* `Create real-time analytics of viewer consumption patterns and engagement`.
+* Sends the data to Datastore.
 
 > [Transcoder API](https://cloud.google.com/transcoder/docs/concepts/overview)
 
@@ -94,8 +91,15 @@ Solutions
 * Transcoder API can help configure low-level encoding parameters like bitrate for `quality of videos`.
 
 > Video Intellignece API
-    * Create real-time analytics of viewer consumption patterns and engagement.
 
+* `Increase predictive capabilities during and before races`
+* [Highlights of Video Intelligence API](https://www.youtube.com/watch?v=mDAoLO4G4CQ)
+* Create real-time analytics of viewer consumption patterns and engagement.
+
+> TesnorFlow with Compute
+
+* Use Machine learning and TensorFlow to increase predictions
+* TesnorFlow can be deploy on Compute Engine or on GKE. Since we want to be more developers vs operations, lean towards GKE and containers.
 
 
 ## Diagrams
@@ -107,3 +111,6 @@ Processing User-generated content using Video Intelligence and Cloud Vision API
 
 Vidoe Transcoder
 ![](https://camo.githubusercontent.com/9112c0c92e2d56b55380def1de257c61568600d5391579cf94a597ba1a74a4f4/68747470733a2f2f726f636b6574736561742d63646e2e73332d73612d656173742d312e616d617a6f6e6177732e636f6d2f6a7570697465722d7472616e73636f64652d6469616772616d2e706e67)
+
+[Architecture of a machine-learning system for near real-time item matching](https://cloud.google.com/architecture/real-time-item-matching?hl=en)
+![](https://cloud.google.com/architecture/images/scann-architecture.svg)
