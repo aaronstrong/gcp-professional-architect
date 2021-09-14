@@ -52,10 +52,37 @@ dealers and partners`
 * Allows the developer to `Modernize all CI/CD pipelines to allow developers to deploy container-based workloads
 in highly scalable environments`.
 
+> AutoML
 
+* Using ML to help with `Predict and detect vehicle malfunction`
+
+> BigQuery
+
+* Managed data warehouse that stores IoT data alongside enterprise analytics and logs.
+
+> Datalab
+
+* Interactive tool for large-scale data exploration, analysis and visualization.
+
+> Dataflow
+
+* Can handle high volume data processing pipelines for IoT scenarios.
+* Dataflow is a managed Apache Beam service for processing data in multiple ways, including batch operations, extract-transform-load (ETL) patterns, and continuous streaming computation.
+
+> IoT Core
+
+* For device management and connection
+* Uses MQTT (Message Queue Telemetry Transport) for the actual device management. Allows for constrained devices to send real-time telemetry as well as immediately receive messages sent from cloud to devices by using config management. MQTT directly connects to pub/sub.
+
+> Pub/Sub
+
+* Global ingestion service.
+* Can act like shock absorber and rate leveller for both incoming data streams and app architecture changes.
 
 ## Diagrams
 
 [Technical orverview of IoT](https://cloud.google.com/architecture/iot-overview?hl=en)
 
 ![](https://cloud.google.com/iot-core/images/data-management.svg)
+
+![](https://i.stack.imgur.com/YBzeU.png)
