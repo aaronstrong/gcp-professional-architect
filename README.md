@@ -23,6 +23,7 @@ I also created labs for testing my knowledge.
 |--|--|
 | **My Notes on the Exam** | :notebook: [Google Services](./services) |
 | **My own labs for the Exam** | :microscope: [Labs](./labs) |
+| **My own notes on the case studies** | :+1: [All case studies](./case-studies)
 
 
 ## Community Posts
