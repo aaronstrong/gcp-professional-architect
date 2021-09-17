@@ -36,7 +36,7 @@ Make sure you select `Cancel`<br>
 "Should VLANs be setup now": No<br>
 <img src="../../../images/pfsense-install/image16.png" width="300">
 
-type in `vtnet0`
+type in `vtnet0`<br>
 <img src="../../../images/pfsense-install/image18.png" width="300">
 
 Hit Enter<br>
@@ -48,5 +48,5 @@ Hit Enter<br>
 <img src="../../../images/pfsense-install/image19.png" width="300">
 
 Select option 8<br>
-type in `pfSh.php playbook disablereferercheck<br>
+type in `pfSh.php playbook disablereferercheck`<br>
 <img src="../../../images/pfsense-install/image20.png" width="300">
