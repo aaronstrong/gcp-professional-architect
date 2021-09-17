@@ -20,11 +20,11 @@ After the [pfSense image has been created](../create-pfsense-image/), now instal
 
 <img src="../../../images/pfsense-install/image7.png" width="300">
 
+Make sure you select `Cancel`<br>
 <img src="../../../images/pfsense-install/image8.png" width="300">
 
 <img src="../../../images/pfsense-install/image9.png" width="300">
 
-Make sure you select `Cancel`<br>
 <img src="../../../images/pfsense-install/image10.png" width="300">
 
 <img src="../../../images/pfsense-install/image12.png" width="300">
