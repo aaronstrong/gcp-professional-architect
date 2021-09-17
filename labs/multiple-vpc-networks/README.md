@@ -1,4 +1,4 @@
-# Multiple VPC Networks
+# Multiple VPC with Centralized appliance
 
 ## Overview
 
@@ -203,8 +203,9 @@ Copy the script below and run
 * `terraform apply` with confirmation to deploy the desired state
 >Note: [Enable IAP](./iap.md) on the project to access the private instances
 
+
 ```terraform
-// Creaet 3 custom VPC's
+// Create 3 custom VPC's
 resource "google_compute_network" "private" {
     name = "private-network"
     auto_create_subnetworks = false
@@ -270,7 +271,7 @@ resource "google_compute_instance" "private-vm" {
 # Deploy 1 VM instance in the public VPC
 resource "google_compute_instance" "public-vm" {
     name = "public-vm"
-    machine_type = "g1-small"
+    machine_type = "n1-standard-2"
     zone = "us-central1-b"
 
     boot_disk {
@@ -333,7 +334,10 @@ sudo sed -i 's:#\(acl localnet src 192.168.0.0/16.*\):\1:' /etc/squid/squid.conf
 sudo service squid start
 SCRIPT
 }
+```
 
+
+```terrform
 // Create Firewall Rules to allow traffic to hit the `hub-proxy`
 # Rules for private network for the hub-proxy
 resource "google_compute_firewall" "private-proxy" {
@@ -388,6 +392,7 @@ resource "google_compute_firewall" "allow-iap-public-network" {
     }
 }
 ```
+
 
 ## Client Setup
 
