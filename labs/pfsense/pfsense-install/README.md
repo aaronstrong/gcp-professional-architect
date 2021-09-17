@@ -4,5 +4,4 @@ After the [pfSense image has been created](../create-pfsense-image/), now instal
 
 1. Navigate to the Compute Engine.
 1. Select the Serial Console button. This will launch a new dialog window.
-1. ![](../../../images/pfsense-install/image1.png)
-1.
+1. <img src="../../../images/pfsense-install/image1.png" width="200">
