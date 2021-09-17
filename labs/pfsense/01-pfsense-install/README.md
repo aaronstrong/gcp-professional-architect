@@ -50,3 +50,10 @@ Hit Enter<br>
 Select option 8<br>
 type in `pfSh.php playbook disablereferercheck`<br>
 <img src="../../../images/pfsense-install/image20.png" width="300">
+
+Open up a browswer and connect to the public IP address of the instance.
+
+| Credentials | Default |
+| ----------- | ------- |
+| username    | admin   |
+| password    | pfsense |
