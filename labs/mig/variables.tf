@@ -34,12 +34,6 @@ variable "testvm_count" {
   default     = 1
 }
 
-variable "proxy_count" {
-  description = "How many VMs to deploy"
-  type        = number
-  default     = 1
-}
-
 variable "vm_size_squid" {
   description = "Node instance type"
   type        = string

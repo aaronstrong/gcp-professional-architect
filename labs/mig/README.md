@@ -39,7 +39,6 @@ The objective of this lab is to deny any instance outbound internace access. Ins
 | <a name="input_region"></a> [region](#input\_region) | VPC region | `string` | `"us-central1"` | no |
 | <a name="input_squid_install_script_path"></a> [squid\_install\_script\_path](#input\_squid\_install\_script\_path) | The script path to install squid proxy. | `string` | `"./installer/squid_install.sh"` | no |
 | <a name="input_tags_squid"></a> [tags\_squid](#input\_tags\_squid) | n/a | `list` | <pre>[<br>  "squid"<br>]</pre> | no |
-| <a name="input_testvm_count"></a> [testvm\_count](#input\_testvm\_count) | How many test VMs to deploy. | `number` | `1` | no |
 | <a name="input_vm_size_squid"></a> [vm\_size\_squid](#input\_vm\_size\_squid) | Node instance type | `string` | `"g1-small"` | no |
 | <a name="input_zone"></a> [zone](#input\_zone) | VPC Zone | `string` | `"us-central1-b"` | no |
 
