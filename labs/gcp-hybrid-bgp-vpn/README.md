@@ -61,4 +61,4 @@ Confirm you're able to reach the Apache web server from the on-premises data cen
 ## References
 
 * [https://cloud.google.com/network-connectivity/docs/vpn/concepts/topologies#1-peer-2-addresses](HA VPN)
-* [https://cloud.google.com/network-connectivity/docs/vpn/how-to/interop-guides](Third party VPNs)
+* [Third party VPNs](https://cloud.google.com/network-connectivity/docs/vpn/how-to/interop-guides)
