@@ -1,6 +1,6 @@
 # Deploy an HA VPN with a single tunnel
 
-This tutorial demonstrates how to use Terraform to deploy the High Availability VPN resources on Google Cloud thar are used in the [https://cloud.google.com/community/tutorials/deploy-ha-vpn-with-terraform](interoperability guides.)
+This tutorial demonstrates how to use Terraform to deploy the High Availability VPN resources on Google Cloud thar are used in the [interoperability guides](https://cloud.google.com/community/tutorials/deploy-ha-vpn-with-terraform)
 
 ## Objectives
 
