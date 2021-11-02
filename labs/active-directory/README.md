@@ -155,8 +155,8 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     If you're interested in exploring the DNS-based failover behavior of domain controllers, follow these steps:
 
 
-    1. Sign out from `vm-test` (be sure to sign out, not simply disconnect).
-    1. Stop `addc-1`, and then log in to `vm-test` again after `addc-1`stops.
+    1. Sign out from `test-vm` (be sure to sign out, not simply disconnect).
+    1. Stop `addc-1`, and then log in to `test-vm` again after `addc-1`stops.
 
     This next login might take longer than usual, but after logging in, if you rerun `echo %logonserver%`, you can see that `\\addc-2` has become the active domain controller.
 
