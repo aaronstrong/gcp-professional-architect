@@ -66,15 +66,6 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     New-ADReplicationSite -Name "GCP-us-central1" -Description "Site1"
     New-ADReplicationSite -Name "GCP-us-east1" -Description "Site2"
     ```
-<!-- 1. Connect to the instance
-    1. For username, enter `contoso.local\administrator`.
-    1. For password, enter the password you previously assigned.
-1. In **Server Manager** select the menu item **Tools > Active Directory Sites and Services**.
-1. In the left-hand navigation pane, under **Active Directory Sites and Services**, right-click **Sites** and then select **New Site**.
-1. For **Name**, enter `GCP-us-central1`.
-1. Under **Select a site link object for this site**, select `DEFAULTIPSITELINK`.
-1. Click **OK** twice.
-1. Repeat steps 3-6 to create a similar site named `GCP-us-east1`. -->
 
 ### Configure site links for Active Directory Replication
 
@@ -82,18 +73,6 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     ```bash
     New-ADReplicationSiteLink -Name "GCP-us-central1-us-east1" -SitesIncluded GCP-us-central1,GCP-us-east1 -Cost 250 -ReplicationFrequencyInMinutes 15 -InterSiteTransportProtocol IP
     ```
-<!-- 1. In the left-hand navigation pane, under Active Directory Sites and Services > Sites, expand Inter-Site Transports.
-1. Right-click IP, and then choose New Site Link.
-1. For Name, specify `GCP-us-central1-us-east1`.
-1. Under Sites not in this site link, highlight both `GCP-us-central1` and `GCP-us-east1`.
-1. Click **Add** to move the sites into **Sites in this site link**.
-1. Click **OK**.
-1. In the left-hand navigation pane, under **Active Directory Sites and Services > Sites > Inter-Site Transports**, select **IP**.
-1. Right-click the new site link `GCP-us-central1-us-east1`, and then choose **Properties**.
-1. For Cost, enter 250.
-   >Note: This cost is chosen to be a multiple of the ping time between domain controllers. In testing, the average ping time between dc-1 and dc-2 was 25 milliseconds. We multiplied this value by 10 to arrive at the cost. In more complex site topologies, using a meaningful measure such as ping time can help with domain controller selection, for example, if a failure occurs that requires selection of a domain controller in a remote site.
-1. For **Replicate Every**, enter `15` minutes.
-1. Click **OK**. -->
 
 ### Configure Subnets for Active Directory Sites
 
@@ -103,11 +82,6 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 
     New-ADReplicationSubnet -Name "10.1.0.0/24" -Site "GCP-us-east1"
     ```
-<!-- 1. In the left-hand navigation pane, under Active Directory Sites and Services > Sites, right-click Subnets, and then select New Subnet.
-1. For Prefix, enter 10.0.0.0/24.
-1. Under Site Name, select GCP-us-central1.
-1. Click OK.
-1. Repeat steps 1–4 to create a similar subnet for 10.1.0.0/24 and site GCP-us-east1. -->
 
 ### Add `addc-1` to the appropriate site `GCP-us-central`
 
@@ -115,11 +89,6 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     ```bash
     Move-ADDirectoryServer -Identity addc-1 -Site "GCP-us-central1"
     ```
-<!-- 1. In the left-hand navigation pane, under Active Directory Sites and Services > Sites, expand Default-First-Site-Name > Servers, and expand GCP-us-central1.
-1. Drag dc-1 from Default-First-Site-Name > Servers to GCP-us-central1 > Servers.
-1. In the Active Directory Domain Services confirmation dialog, click Yes.
-    > Note: You just manually moved dc-1 into the site Google Cloud-us-central1 because when you promoted dc-1 to a domain controller, you hadn't yet created the Google Cloud sites. -->
-
 ## Promoting Additional Domain Controllers
 
 ### Configure addc-2 as a domain controller
@@ -143,29 +112,6 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     -Force:$true
     ```
     >**Note**: May need to set the local DNS setting to point to the IP address of addc-1.
-<!-- 
-1. Click the Notifications flag icon at the top of the Server Manager window.
-1. In the Post-deployment Configuration notification, click Promote this server to a domain controller.
-1. In the Active Directory Domain Services Configuration Wizard, under Select the deployment operation, choose Add a domain controller to an existing domain.
-1. For Domain, enter `contoso.local`.
-1. Under Supply the credentials to perform this operation, click Change.
-1. In the Windows Security dialog, specify your domain administrator credentials:
-    1. For **Username**, enter `contos\administrator`.
-    1. For **Password**, enter the password you previously assigned to the local administrator account on `dc-1`.
-1. Click **OK** to close the dialog.
-1. Click **Next**.
-1. In the **Domain Controller** Options page, under **Site name**, verify that `GCP-us-east1` is selected.
-    >Note: As you promote dc-2 to a domain controller, because you've defined Google Cloud-specific sites and their associated subnets, dc-2 automatically selects the appropriate site, `GCP-us-east1`, based on its network address.
-1. Enter and confirm a strong password for the Directory Services Restore Mode (DSRM) password.
-1. You can use the same DSRM password that you specified for dc-1. In any case, remember this password. It can be useful if you need to repair or recover your domain.
-1. Click **Next**.
-1. In the **DNS Options** page, click **Next**.
-    You might see the warning, A delegation for this DNS server cannot be created because the authoritative parent zone cannot be found. You can disregard this warning because the forwarding zone in the preceding Cloud DNS configuration serves the same purpose as the delegation mentioned in the warning.
-1. In the Additional Options page, click **Next**.
-1. In the Paths page, click **Next**.
-1. In the Review Options page, click **Next**.
-1. In the Prerequisites Check page, after the checks complete, click **Install**.
-   >Note: Because the instance automatically restarts after installation, you are disconnected from your RDP session. -->
 
 ## Testing the Configuration
 
@@ -179,12 +125,12 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 
 1. At your local command prompt, start a tunnel using IAP and the gcloud tool:
     ```
-    gcloud beta compute start-iap-tunnel test-1 3389 \
+    gcloud beta compute start-iap-tunnel test-vm 3389 \
         --zone=zone \
         --project=project-id
     ```
     Where:<br>
-    * zone is the zone in the us-central1 region where test-1 is deployed.
+    * zone is the zone in the us-central1 region where test-vm is deployed.
     * project-id is the project ID you chose for this tutorial.
 
 ### Join test vm to domain
@@ -192,13 +138,7 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     ```bash
     Add-Computer -DomainName contoso.local -Restart
     ```
-<!-- 1. In the Remote Desktop window, join the instance to the example.org domain. Click Local Server in the left-hand navigation pane of the Server Manager window.
-1. Under Properties For test-1, click the WORKGROUP link.
-1. On the Computer Name tab of the System Properties dialog, click Change.
-1. In the Member of section, select Domain, and then enter example.org.
-1. Click OK.
-1. When prompted for credentials, specify example\administrator along with the previously chosen domain administrator password, and click OK.
-1. Click OK, OK, Close, and finally **Restart Now**. -->
+
 
 ### Verify Domain Membership and the active controller
 1. Wait a moment for the server to restart. The tunnel for RDP will still be active.
