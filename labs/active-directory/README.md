@@ -109,11 +109,11 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 1. Click OK.
 1. Repeat steps 1–4 to create a similar subnet for 10.1.0.0/24 and site GCP-us-east1. -->
 
-### Add `adds-1` to the appropriate site `GCP-us-central`
+### Add `addc-1` to the appropriate site `GCP-us-central`
 
 1. Open up a elevated PowerShell shell prompt:
     ```bash
-    Move-ADDirectoryServer -Identity adds-1 -Site "GCP-us-central1"
+    Move-ADDirectoryServer -Identity addc-1 -Site "GCP-us-central1"
     ```
 <!-- 1. In the left-hand navigation pane, under Active Directory Sites and Services > Sites, expand Default-First-Site-Name > Servers, and expand GCP-us-central1.
 1. Drag dc-1 from Default-First-Site-Name > Servers to GCP-us-central1 > Servers.
@@ -122,7 +122,7 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 
 ## Promoting Additional Domain Controllers
 
-### Configure adds-2 as a domain controller
+### Configure addc-2 as a domain controller
 1. Generate a new local password from the [previous steps](##Create-and-configure-a-Windows-Domain-Controller) and [RDP](https://cloud.google.com/compute/docs/instances/connecting-to-instance#windows) to the instance.
 1. Open up a [PowerShell prompt with administrator privileges](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7.1#with-administrative-privileges-run-as-administrator):
     ```bash
@@ -137,12 +137,12 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     -InstallDns:$true `
     -LogPath "C:\Windows\NTDS" `
     -NoRebootOnCompletion:$false `
-    -ReplicationSourceDC "adds-1.contoso.local" `
+    -ReplicationSourceDC "addc-1.contoso.local" `
     -SiteName "GCP-us-east1" `
     -SysvolPath "C:\Windows\SYSVOL" `
     -Force:$true
     ```
-    >**Note**: May need to set the local DNS setting to point to the IP address of adds-1.
+    >**Note**: May need to set the local DNS setting to point to the IP address of addc-1.
 <!-- 
 1. Click the Notifications flag icon at the top of the Server Manager window.
 1. In the Post-deployment Configuration notification, click Promote this server to a domain controller.
@@ -210,15 +210,15 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     You see output similar to the following, identifying dc-1 as the active domain controller.
 
     ```bash
-    \\ADDS-1
+    \\addc-1
     ```
     If you're interested in exploring the DNS-based failover behavior of domain controllers, follow these steps:
 
 
     1. Sign out from `vm-test` (be sure to sign out, not simply disconnect).
-    1. Stop `adds-1`, and then log in to `vm-test` again after `adds-1`stops.
+    1. Stop `addc-1`, and then log in to `vm-test` again after `addc-1`stops.
 
-    This next login might take longer than usual, but after logging in, if you rerun `echo %logonserver%`, you can see that `\\ADDS-2` has become the active domain controller.
+    This next login might take longer than usual, but after logging in, if you rerun `echo %logonserver%`, you can see that `\\addc-2` has become the active domain controller.
 
 ## Inputs
 
