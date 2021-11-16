@@ -9,6 +9,12 @@ variable "project_id" {
   type        = string
 }
 
+variable "gcp_credentials" {
+  type        = string
+  sensitive   = true
+  description = "Google Cloud service account credentials"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.
