@@ -16,6 +16,10 @@ A pfSense image has been created in Google Cloud. If not, [follow this guide](..
 * `terraform plan`
 * `terraform apply`
 
+## pfSense Install
+
+Follow the [pfSense install](../labs/pfsense/01-pfsense-install) instructions to configure both appliances.
+
 ## pfSense configuration
 
 After the `terraform` code has been ran and completed successfully, configure each pfsense instance individually.
