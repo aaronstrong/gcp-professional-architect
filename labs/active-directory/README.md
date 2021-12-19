@@ -21,6 +21,7 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 ## Create and configure a Windows Domain Controller
 
 1. Create a VM with the terraform script to use as a domain controller.
+>Note: The Windows instances take some time to boot up and run the startup script. Look at the serial port output to check on the status.
 1. Generate a password so that you can connect to the domain controller. Record the username and password for future use.
 
     ```bash
@@ -78,22 +79,23 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 
 1. Open up a elevated PowerShell shell prompt:
     ```bash
-    New-ADReplicationSubnet -Name "10.0.0.0/24" -Site "GCP-us-central1"
+    New-ADReplicationSubnet -Name "10.0.0.0/16" -Site "GCP-us-central1"
 
-    New-ADReplicationSubnet -Name "10.1.0.0/24" -Site "GCP-us-east1"
+    New-ADReplicationSubnet -Name "10.1.0.0/16" -Site "GCP-us-east1"
     ```
 
-### Add `addc-1` to the appropriate site `GCP-us-central`
+### Add `test-us-central1-dc-01` to the appropriate site `GCP-us-central`
 
 1. Open up a elevated PowerShell shell prompt:
     ```bash
-    Move-ADDirectoryServer -Identity addc-1 -Site "GCP-us-central1"
+    Move-ADDirectoryServer -Identity test-us-central1-dc-01 -Site "GCP-us-central1"
     ```
 ## Promoting Additional Domain Controllers
 
-### Configure addc-2 as a domain controller
+### Configure test-us-east1-dc-01 as a domain controller
 1. Generate a new local password from the [previous steps](##Create-and-configure-a-Windows-Domain-Controller) and [RDP](https://cloud.google.com/compute/docs/instances/connecting-to-instance#windows) to the instance.
-1. Open up a [PowerShell prompt with administrator privileges](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7.1#with-administrative-privileges-run-as-administrator):
+1. Join the `us-east1` instance to the domain. 
+1. After the reboot, open up a [PowerShell prompt with administrator privileges](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7.1#with-administrative-privileges-run-as-administrator):
     ```bash
     Import-Module ADDSDeployment
     Install-ADDSDomainController `
@@ -106,12 +108,12 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     -InstallDns:$true `
     -LogPath "C:\Windows\NTDS" `
     -NoRebootOnCompletion:$false `
-    -ReplicationSourceDC "addc-1.contoso.local" `
+    -ReplicationSourceDC "test-us-central1-dc-01.contoso.local" `
     -SiteName "GCP-us-east1" `
     -SysvolPath "C:\Windows\SYSVOL" `
     -Force:$true
     ```
-    >**Note**: May need to set the local DNS setting to point to the IP address of addc-1.
+    >**Note**: May need to set the local DNS setting to point to the IP address of the first domain controller.
 
 ## Testing the Configuration
 
@@ -132,6 +134,11 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     Where:<br>
     * zone is the zone in the us-central1 region where test-vm is deployed.
     * project-id is the project ID you chose for this tutorial.
+1. Leave `gcloud` running and open Microsoft Windows Remote Desktop Connection app.
+1. Enter the tunnel endpoing as computer name:
+    ```gcloud
+    localhost:[local_port]
+    ```
 
 ### Join test vm to domain
 1. Open an elevated PowerShell command prompt:
@@ -150,7 +157,7 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     You see output similar to the following, identifying dc-1 as the active domain controller.
 
     ```bash
-    \\addc-1
+    \\dc-01
     ```
     If you're interested in exploring the DNS-based failover behavior of domain controllers, follow these steps:
 
@@ -166,8 +173,8 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 |------|-------------|------|---------|:--------:|
 | <a name="input_auto_restart"></a> [auto\_restart](#input\_auto\_restart) | Set if the instance should auto-restart. | `bool` | `false` | no |
 | <a name="input_boot_disk"></a> [boot\_disk](#input\_boot\_disk) | What image the instance should boot from. | `string` | `"windows-cloud/windows-2019"` | no |
-| <a name="input_cidr_range_1"></a> [cidr\_range\_1](#input\_cidr\_range\_1) | n/a | `string` | `"10.0.0.0/24"` | no |
-| <a name="input_cidr_range_2"></a> [cidr\_range\_2](#input\_cidr\_range\_2) | n/a | `string` | `"10.1.0.0/24"` | no |
+| <a name="input_cidr_range_1"></a> [cidr\_range\_1](#input\_cidr\_range\_1) | n/a | `string` | `"10.0.0.0/16"` | no |
+| <a name="input_cidr_range_2"></a> [cidr\_range\_2](#input\_cidr\_range\_2) | n/a | `string` | `"10.1.0.0/16"` | no |
 | <a name="input_dc_machine_type"></a> [dc\_machine\_type](#input\_dc\_machine\_type) | Machine type to deploy for the Domain Controller | `string` | `"e2-medium"` | no |
 | <a name="input_preemptible"></a> [preemptible](#input\_preemptible) | Set if this instance should be preemptible | `bool` | `true` | no || <a name="input_prefix_hostname"></a> [prefix\_hostname](#input\_prefix\_hostname) | The hostname prefix | `string` | `"addc"` | no |     
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project ID | `string` | n/a | yes |

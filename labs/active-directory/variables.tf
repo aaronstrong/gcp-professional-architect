@@ -16,12 +16,16 @@ variable "region" {
   default = "us-central1"
 }
 
-variable "cidr_range_1" {
-  default = "10.0.0.0/24"
+variable "environment" {
+  description = "Environment"
+  type        = string
+  default     = "test"
 }
 
-variable "cidr_range_2" {
-  default = "10.1.0.0/24"
+variable "cidr_prefix" {
+  description = "Must be given in CIDR notation. The assigned supernet."
+  type        = string
+  default     = "10.0.0.0/15"
 }
 
 variable "preemptible" {

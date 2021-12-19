@@ -28,10 +28,11 @@ resource "google_compute_address" "us_east1" {
 
 resource "google_compute_instance" "dc-1" {
   // You would not make a production ADDC public to the internet. BUT, this is a lab :)
-  name         = "${var.prefix_hostname}-1"
+  name         = module.gce_dc_one.id
   machine_type = var.dc_machine_type
   zone         = "us-central1-b"
   tags         = ["dc", "dns"]
+  labels       = module.gce_dc_one.tags
 
   boot_disk {
     initialize_params {
@@ -70,10 +71,11 @@ resource "google_compute_instance" "dc-1" {
 
 resource "google_compute_instance" "dc-2" {
   // You would not make a production ADDC public to the internet. BUT, this is a lab :)
-  name         = "${var.prefix_hostname}-2"
+  name         = module.gce_dc_two.id
   machine_type = var.dc_machine_type
   zone         = "us-east1-b"
   tags         = ["dc", "dns"]
+  labels       = module.gce_dc_two.tags
 
   boot_disk {
     initialize_params {

@@ -3,7 +3,7 @@
 # -------------------------------------------------------------------
 
 resource "google_compute_instance" "vm_test" {
-  name         = "test-vm"
+  name         = module.gce_test.id
   machine_type = "n1-standard-2"
   zone         = "us-central1-c"
 
