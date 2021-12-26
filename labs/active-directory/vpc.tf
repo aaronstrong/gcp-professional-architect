@@ -30,7 +30,6 @@ resource "google_compute_network" "hub" {
 resource "google_compute_subnetwork" "subnet0" {
   # Creaet the first subnet in region us-central1
   name = module.vpc_subnet_01.id
-  #ip_cidr_range = var.cidr_range_1
   ip_cidr_range = cidrsubnet(var.cidr_prefix, 1, 0)
   region        = var.region
   network       = google_compute_network.hub.id

@@ -121,8 +121,8 @@ module "gce_dc_one" {
   # Default order is `namespace`, `environment`, `stage`, `name`, `attributes`.
   # Override with `label_order`
 
-  namespace           = ""
-  environment         = var.environment
+  namespace   = ""
+  environment = var.environment
   #stage               = "us-c1"
   name                = "dc"
   attributes          = ["01"]
@@ -144,8 +144,8 @@ module "gce_dc_two" {
   # Default order is `namespace`, `environment`, `stage`, `name`, `attributes`.
   # Override with `label_order`
 
-  namespace           = ""
-  environment         = var.environment
+  namespace   = ""
+  environment = var.environment
   #stage               = "us-e1"
   name                = "dc"
   attributes          = ["02"]
@@ -167,8 +167,8 @@ module "gce_test" {
   # Default order is `namespace`, `environment`, `stage`, `name`, `attributes`.
   # Override with `label_order`
 
-  namespace           = ""
-  environment         = var.environment
+  namespace   = ""
+  environment = var.environment
   #stage               = "us-central1"
   name                = "instance"
   attributes          = ["01"]
