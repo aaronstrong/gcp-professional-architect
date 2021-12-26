@@ -18,6 +18,18 @@ variable "environment" {
   default     = "test"
 }
 
+variable "firewalls_count" {
+  description = "The total number of firewalls to deploy."
+  type        = number
+  default     = 2
+}
+
+variable "instances_count" {
+  description = "The total number of instances to deploy."
+  type        = number
+  default     = 1
+}
+
 variable "cidr_prefix" {
   description = "Must be given in CIDR notation. The assigned supernet."
   type        = string
@@ -26,7 +38,7 @@ variable "cidr_prefix" {
 
 variable "zone_spread" {
   description = "List out what zones to deploy firewall instances to."
-  type        = list
+  type        = list(any)
   default = [
     "b",
     "c"

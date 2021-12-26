@@ -21,28 +21,3 @@ module "vpc_subnet" {
   attributes  = ["public"]
   delimiter   = "-"
 }
-
-module "pfsense" {
-  source  = "cloudposse/label/null"
-  version = "~> 0.25"
-
-  namespace           = ""
-  stage               = ""
-  environment         = var.environment
-  name                = "pfsense"
-  attributes          = ["vm"]
-  delimiter           = "-"
-  regex_replace_chars = "/[^a-zA-Z0-9-+]/"
-}
-
-module "pfsense_two" {
-  source  = "cloudposse/label/null"
-  version = "~> 0.25"
-
-  namespace   = ""
-  stage       = ""
-  environment = var.environment
-  name        = "pfsense"
-  attributes  = ["vm", "02"]
-  delimiter   = "-"
-}
