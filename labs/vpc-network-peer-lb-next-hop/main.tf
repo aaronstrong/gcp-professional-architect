@@ -4,98 +4,31 @@
 
 provider "google" {
   project = var.project_id
-  region  = "uc-central1"
+  region  = var.region
 }
 
-# -------------------------------------------------------------------
-# VPC
-# Create the four VPCs and assign subnet ranges to each.
-# -------------------------------------------------------------------
-// Create a Hub VPC
-resource "google_compute_network" "hub" {
-  name                    = "hub-network"
-  auto_create_subnetworks = false
+data "google_netblock_ip_ranges" "legacy_health_checkers" {
+  range_type = "legacy-health-checkers"
 }
 
-// Create a subnetwork in the hub VPC
-resource "google_compute_subnetwork" "subnet0" {
-  name          = "subnet0"
-  ip_cidr_range = "10.0.0.0/24"
-  region        = "us-central1"
-  network       = google_compute_network.hub.id
+data "google_netblock_ip_ranges" "health_checkers" {
+  range_type = "health-checkers"
 }
 
-// Create an untrust VPC
-resource "google_compute_network" "untrust" {
-  name                    = "untrust-network"
-  auto_create_subnetworks = false
+data "google_netblock_ip_ranges" "iap_forwarders" {
+  range_type = "iap-forwarders"
 }
 
-// Create a subnetwork in the untrust VPC
-resource "google_compute_subnetwork" "subnet1" {
-  name          = "subnet1"
-  ip_cidr_range = "10.0.10.0/24"
-  region        = "us-central1"
-  network       = google_compute_network.untrust.id
+data "google_compute_zones" "available" {
+  region = var.region
 }
 
-// Create a transit VPC
-resource "google_compute_network" "transit" {
-  name                    = "transit-network"
-  auto_create_subnetworks = false
+locals {
+  firewall_name     = format("%s-%s-%s", var.environment, "pfsense", var.region)
+  instance_name     = format("%s-%s", var.environment, "test")
+  protocol          = upper("TCP")
+  direction_ingress = "INGRESS"
 }
-
-// Create a subnetwork in the transit VPC
-resource "google_compute_subnetwork" "subnet2" {
-  name          = "subnet2"
-  ip_cidr_range = "10.0.20.0/24"
-  region        = "us-central1"
-  network       = google_compute_network.transit.id
-}
-
-// Create a spoke-a VPC
-resource "google_compute_network" "spoke-a" {
-  name                            = "spoke-a-network"
-  auto_create_subnetworks         = false
-  delete_default_routes_on_create = true
-}
-
-// Create a subnetwork in the spoke a VPC
-resource "google_compute_subnetwork" "subnet3" {
-  name          = "subnet3"
-  ip_cidr_range = "10.131.0.0/16"
-  region        = "us-central1"
-  network       = google_compute_network.spoke-a.id
-}
-
-// Create a VPC peer between the hub vpc and spoke-a vpc
-module "peering" {
-  source  = "terraform-google-modules/network/google//modules/network-peering"
-  version = "3.4.0"
-
-  prefix        = "network-peer"
-  local_network = google_compute_network.hub.self_link
-  peer_network  = google_compute_network.spoke-a.self_link
-
-  export_local_subnet_routes_with_public_ip = false
-  export_local_custom_routes                = true
-
-  module_depends_on = [
-    google_compute_network.hub,
-    google_compute_network.spoke-a
-  ]
-}
-
-// STATIC ROUTE
-// Direct default routes to central firewall
-resource "google_compute_route" "hub-default-route" {
-  name         = "route-ilb"
-  dest_range   = "0.0.0.0/0"
-  network      = google_compute_network.hub.name
-  next_hop_ilb = google_compute_forwarding_rule.google_compute_forwarding_rule.id
-  priority     = "800"
-}
-
 
 # -------------------------------------------------------------------
 # FIREWALL RULES
@@ -106,10 +39,10 @@ resource "google_compute_route" "hub-default-route" {
 resource "google_compute_firewall" "allow-iap-private-network" {
   name          = "allow-iap-private-network"
   network       = google_compute_network.spoke-a.name
-  direction     = "INGRESS"
-  source_ranges = ["35.235.240.0/20"]
+  direction     = local.direction_ingress
+  source_ranges = concat(data.google_netblock_ip_ranges.iap_forwarders.cidr_blocks_ipv4)
   allow {
-    protocol = "tcp"
+    protocol = local.protocol
     ports    = ["22", "3389"]
   }
 }
@@ -120,7 +53,7 @@ resource "google_compute_firewall" "allow-iap-private-network" {
 resource "google_compute_firewall" "allow-ingress-public-vpc" {
   name          = "allow-ingress-public-vpc"
   network       = google_compute_network.untrust.name
-  direction     = "INGRESS"
+  direction     = local.direction_ingress
   source_ranges = ["0.0.0.0/0"]
 
   allow {
@@ -132,7 +65,7 @@ resource "google_compute_firewall" "allow-ingress-public-vpc" {
 resource "google_compute_firewall" "allow-ingress-spoke-a-vpc" {
   name          = "allow-ingress-spoke-a-vpc"
   network       = google_compute_network.spoke-a.name
-  direction     = "INGRESS"
+  direction     = local.direction_ingress
   source_ranges = ["0.0.0.0/0"]
 
   allow {
@@ -144,7 +77,7 @@ resource "google_compute_firewall" "allow-ingress-spoke-a-vpc" {
 resource "google_compute_firewall" "allow-ingress-hub-vpc" {
   name          = "allow-ingress-hub-vpc"
   network       = google_compute_network.hub.name
-  direction     = "INGRESS"
+  direction     = local.direction_ingress
   source_ranges = ["0.0.0.0/0"]
 
   allow {
@@ -158,10 +91,10 @@ resource "google_compute_firewall" "default-hc" {
   name    = "firewall-hc"
   network = google_compute_network.hub.name
   allow {
-    protocol = "tcp"
+    protocol = local.protocol
     ports    = ["443", "80"]
   }
-  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
+  source_ranges = concat(data.google_netblock_ip_ranges.health_checkers.cidr_blocks_ipv4, data.google_netblock_ip_ranges.legacy_health_checkers.cidr_blocks_ipv4)
 }
 
 // Firewall rule to allow ingress for the hub vpc
@@ -178,14 +111,14 @@ resource "google_compute_firewall" "default-ilb-fw" {
 # INSTANCES
 # -------------------------------------------------------------------
 # Deploy central Firewall
-resource "google_compute_instance" "pfsense-01" {
-  name           = "pfsense-vm-01"
+resource "google_compute_instance" "pfsense" {
+  count          = var.firewalls_count
+  name           = "${local.firewall_name}-${count.index}"
   machine_type   = "n1-standard-4"
-  zone           = "us-central1-b"
+  zone           = data.google_compute_zones.available.names[count.index]
   can_ip_forward = true
 
   metadata = {
-    #serial-port-logging-enabled = "TRUE"
     serial-port-enable = true
   }
 
@@ -219,50 +152,13 @@ resource "google_compute_instance" "pfsense-01" {
   }
 }
 
-resource "google_compute_instance" "pfsense-02" {
-  name           = "pfsense-vm-02"
-  machine_type   = "n1-standard-4"
-  zone           = "us-central1-c"
-  can_ip_forward = true
-
-  metadata = {
-    #serial-port-logging-enabled = "TRUE"
-    serial-port-enable = true
-  }
-
-  boot_disk {
-    initialize_params {
-      image = "${var.project_id}/pfsense-2-5-2"
-      size  = 20
-      type  = "pd-standard"
-    }
-  }
-
-  network_interface {
-    network    = google_compute_network.untrust.id
-    subnetwork = google_compute_subnetwork.subnet1.id
-    access_config {}
-  }
-  network_interface {
-    network    = google_compute_network.hub.id
-    subnetwork = google_compute_subnetwork.subnet0.id
-  }
-  network_interface {
-    network    = google_compute_network.transit.id
-    subnetwork = google_compute_subnetwork.subnet2.id
-  }
-
-  scheduling {
-    preemptible       = true
-    automatic_restart = false
-  }
-}
 # Deploy a test instance in the private VPC
 # without a public IP address
 resource "google_compute_instance" "private-vm" {
-  name         = "private-vm"
+  count        = var.instances_count
+  name         = "${local.instance_name}-${count.index}"
   machine_type = "g1-small"
-  zone         = "us-central1-b"
+  zone         = data.google_compute_zones.available.names[count.index]
 
   boot_disk {
     initialize_params {
@@ -291,30 +187,19 @@ resource "google_compute_instance" "private-vm" {
 # -------------------------------------------------------------------
 // Create two instance groups (IG) and put a stateful firewall in each IG
 // Instance Group 1
-resource "google_compute_instance_group" "fw-umig-01" {
-  name        = "firewall-umig-01"
+resource "google_compute_instance_group" "fw_umig" {
+  count       = var.firewalls_count
+  name        = "firewall-umig-${count.index}"
   description = "Terraform unmanaged instance groups"
-  zone        = "us-central1-b"
+  zone        = data.google_compute_zones.available.names[count.index]
   network     = google_compute_network.untrust.id
 
   instances = [
-    google_compute_instance.pfsense-01.id,
+    google_compute_instance.pfsense[count.index].id,
   ]
 }
 
-// Instance Group 2
-resource "google_compute_instance_group" "fw-umig-02" {
-  name        = "firewall-umig-02"
-  description = "Terraform unmanaged instance groups"
-  zone        = "us-central1-c"
-  network     = google_compute_network.untrust.id
-
-  instances = [
-    google_compute_instance.pfsense-02.id,
-  ]
-}
-
-// Create the GCP Health Check
+# Create the GCP Health Check
 resource "google_compute_health_check" "http" {
   name = "health-check-http"
 
@@ -326,19 +211,19 @@ resource "google_compute_health_check" "http" {
   }
 }
 
-// CREATE INTERNAL LOAD BALANCER
+# CREATE INTERNAL LOAD BALANCER
 # forwarding rule
 resource "google_compute_forwarding_rule" "google_compute_forwarding_rule" {
   project               = var.project_id
   name                  = "l4-ilb-forwarding-rule"
   description           = "managed by terraform"
-  region                = "us-central1"
+  region                = var.region
   network               = google_compute_network.hub.id
   subnetwork            = google_compute_subnetwork.subnet0.id
   allow_global_access   = false
   backend_service       = google_compute_region_backend_service.umig.self_link
   provider              = google-beta
-  ip_protocol           = "TCP"
+  ip_protocol           = local.protocol
   load_balancing_scheme = "INTERNAL"
   all_ports             = true
 }
@@ -348,20 +233,20 @@ resource "google_compute_region_backend_service" "umig" {
   name                            = "firewall-with--tcp-hc"
   project                         = var.project_id
   provider                        = google-beta
-  region                          = "us-central1"
-  protocol                        = "TCP"
+  region                          = var.region
+  protocol                        = local.protocol
   load_balancing_scheme           = "INTERNAL"
   network                         = google_compute_network.hub.id
   health_checks                   = [google_compute_health_check.http.id]
   connection_draining_timeout_sec = 300
   backend {
-    group       = google_compute_instance_group.fw-umig-01.self_link
-    description = "Instance Group 1"
+    group       = google_compute_instance_group.fw_umig[0].self_link
+    description = format("Instance Group %s", "1")
     failover    = false
   }
   backend {
-    group       = google_compute_instance_group.fw-umig-02.self_link
-    description = "Instance Group 2"
+    group       = google_compute_instance_group.fw_umig[1].self_link
+    description = format("Instance Group %s", "2")
     failover    = true
   }
 }
