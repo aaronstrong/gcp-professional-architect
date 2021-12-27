@@ -1,66 +1,83 @@
+locals {
+  hub_cidr     = cidrsubnet(var.cidr_prefix, 9, 0)
+  spokea_cidr  = cidrsubnet(var.cidr_prefix, 9, 5)
+  untrust_cidr = cidrsubnet(var.cidr_prefix, 9, 10)
+  transit_cidr = cidrsubnet(var.cidr_prefix, 9, 20)
+
+  hub_vpc_name        = "hub-vpc"
+  hub_subnet_name     = "${var.environment}-${var.region}-hub-subnet-0"
+  untrust_vpc_name    = "untrust-vpc"
+  untrust_subnet_name = "${var.environment}-${var.region}-untrust-subnet-0"
+  transit_vpc_name    = "transit-vpc"
+  transit_subnet_name = "${var.environment}-${var.region}-transit-subnet-0"
+  spoke_a_vpc_name    = "spoke-a-vpc"
+  spoke_a_subnet_name = "${var.environment}-${var.region}-spoke-a-subnet-0"
+}
+
 # -------------------------------------------------------------------
 # VPC
 # Create the four VPCs and assign subnet ranges to each.
 # -------------------------------------------------------------------
-// Create a Hub VPC
+
 resource "google_compute_network" "hub" {
-  name                    = "hub-network"
+  # Create a Hub VPC
+  name                    = local.hub_vpc_name
   auto_create_subnetworks = false
 }
 
-// Create a subnetwork in the hub VPC
 resource "google_compute_subnetwork" "subnet0" {
-  name          = "subnet0"
-  ip_cidr_range = "10.0.0.0/24"
+  # Create a subnetwork in the hub VPC
+  name          = local.hub_subnet_name
+  ip_cidr_range = local.hub_cidr
   region        = var.region
   network       = google_compute_network.hub.id
 }
 
-// Create an untrust VPC
 resource "google_compute_network" "untrust" {
-  name                    = "untrust-network"
+  # Create an untrust VPC
+  name                    = local.untrust_vpc_name
   auto_create_subnetworks = false
 }
 
-// Create a subnetwork in the untrust VPC
 resource "google_compute_subnetwork" "subnet1" {
-  name          = "subnet1"
-  ip_cidr_range = "10.0.10.0/24"
+  # Create a subnetwork in the untrust VPC
+  name          = local.untrust_subnet_name
+  ip_cidr_range = local.untrust_cidr
   region        = var.region
   network       = google_compute_network.untrust.id
 }
 
-// Create a transit VPC
 resource "google_compute_network" "transit" {
-  name                    = "transit-network"
+  # Create a transit VPC
+  name                    = local.transit_vpc_name
   auto_create_subnetworks = false
 }
 
-// Create a subnetwork in the transit VPC
 resource "google_compute_subnetwork" "subnet2" {
-  name          = "subnet2"
-  ip_cidr_range = "10.0.20.0/24"
+  # Create a subnetwork in the transit VPC
+  name          = local.transit_subnet_name
+  ip_cidr_range = local.transit_cidr
   region        = var.region
   network       = google_compute_network.transit.id
 }
 
-// Create a spoke-a VPC
 resource "google_compute_network" "spoke-a" {
-  name                            = "spoke-a-network"
+  # Create a spoke-a VPC
+  name                            = local.spoke_a_vpc_name
   auto_create_subnetworks         = false
   delete_default_routes_on_create = true
 }
 
-// Create a subnetwork in the spoke a VPC
 resource "google_compute_subnetwork" "subnet3" {
-  name          = "subnet3"
-  ip_cidr_range = "10.131.0.0/16"
+  # Create a subnetwork in the spoke a VPC
+  name          = local.spoke_a_subnet_name
+  ip_cidr_range = local.spokea_cidr
   region        = var.region
   network       = google_compute_network.spoke-a.id
 }
 
-// Create a VPC peer between the hub vpc and spoke-a vpc
 module "peering" {
+  # Create a VPC peer between the hub vpc and spoke-a vpc
   source  = "terraform-google-modules/network/google//modules/network-peering"
   version = "3.4.0"
 
@@ -77,9 +94,8 @@ module "peering" {
   ]
 }
 
-// STATIC ROUTE
-// Direct default routes to central firewall
 resource "google_compute_route" "hub-default-route" {
+  # Direct default routes to central firewall
   name         = "route-ilb"
   dest_range   = "0.0.0.0/0"
   network      = google_compute_network.hub.name
