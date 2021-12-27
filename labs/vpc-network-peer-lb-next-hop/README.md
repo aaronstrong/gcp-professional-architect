@@ -146,3 +146,73 @@ Repeat steps for the second firewall
 ## Clean up
 
 * `terraform destroy`
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | 3.90.1 || <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 4.5.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_peering"></a> [peering](#module\_peering) | terraform-google-modules/network/google//modules/network-peering | 3.4.0 |      
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [google-beta_google_compute_forwarding_rule.google_compute_forwarding_rule](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_compute_forwarding_rule) | resource |       
+| [google-beta_google_compute_region_backend_service.umig](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_compute_region_backend_service) | resource |
+| [google_compute_firewall.allow-iap-private-network](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.allow-ingress-hub-vpc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.allow-ingress-public-vpc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.allow-ingress-spoke-a-vpc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.default-hc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.default-ilb-fw](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | 
+resource |
+| [google_compute_health_check.http](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_health_check) | resource |
+| [google_compute_instance.pfsense](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
+| [google_compute_instance.private-vm](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance) | resource |
+| [google_compute_instance_group.fw_umig](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_group) | resource |
+| [google_compute_network.hub](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network) | resource |   
+| [google_compute_network.spoke-a](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network) | resource 
+|
+| [google_compute_network.transit](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network) | resource 
+|
+| [google_compute_network.untrust](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network) | resource 
+|
+| [google_compute_route.hub-default-route](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_route) | resource |
+| [google_compute_subnetwork.subnet0](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
+| [google_compute_subnetwork.subnet1](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
+| [google_compute_subnetwork.subnet2](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
+| [google_compute_subnetwork.subnet3](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
+| [google_compute_zones.available](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_zones) | data source |
+| [google_netblock_ip_ranges.health_checkers](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/netblock_ip_ranges) | data source |
+| [google_netblock_ip_ranges.iap_forwarders](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/netblock_ip_ranges) | data source |
+| [google_netblock_ip_ranges.legacy_health_checkers](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/netblock_ip_ranges) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cidr_prefix"></a> [cidr\_prefix](#input\_cidr\_prefix) | Must be given in CIDR notation. The assigned supernet. | `string` | 
+`"10.0.0.0/15"` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Environment | `string` | `"test"` | no |
+| <a name="input_firewalls_count"></a> [firewalls\_count](#input\_firewalls\_count) | The total number of firewalls to deploy. | `number` | `2` | no |
+| <a name="input_instances_count"></a> [instances\_count](#input\_instances\_count) | The total number of instances to deploy. | `number` | `1` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | 
+The Project ID | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region to 
+deploy resources. | `string` | `"us-central1"` | no |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
