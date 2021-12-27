@@ -7,6 +7,10 @@ provider "google" {
   region  = var.region
 }
 
+# -------------------------------------------------------------------
+# DATA RESOURCES
+# -------------------------------------------------------------------
+
 data "google_netblock_ip_ranges" "legacy_health_checkers" {
   range_type = "legacy-health-checkers"
 }
@@ -23,21 +27,29 @@ data "google_compute_zones" "available" {
   region = var.region
 }
 
+# -------------------------------------------------------------------
+# LOCALS
+# -------------------------------------------------------------------
+
 locals {
-  firewall_name     = format("%s-%s-%s", var.environment, "pfsense", var.region)
-  instance_name     = format("%s-%s", var.environment, "test")
-  protocol          = upper("TCP")
-  direction_ingress = "INGRESS"
+  firewall_name               = format("%s-%s-%s", var.environment, "pfsense", var.region)
+  instance_name               = format("%s-%s", var.environment, "test")
+  protocol                    = upper("TCP")
+  direction_ingress           = upper("INGRESS")
+  fw_name_ingress_iap         = "allow-ingress-iap-${local.spoke_a_vpc_name}"
+  fw_name_ingress_untrust     = "allow-ingress-all-${local.untrust_vpc_name}"
+  fw_name_ingress_all_spoke_a = "allow-ingres-all-${local.spoke_a_vpc_name}"
+  fw_name_ingress_all_hub     = "allow-ingress-all-${local.hub_vpc_name}"
 }
 
 # -------------------------------------------------------------------
 # FIREWALL RULES
-# GCP by default has a deny ingress rule. To allow traffic, you must
-# create exceptions
+# Create a firewall rule to allow inbound IAP access.
 # -------------------------------------------------------------------
-# Rule to allow IAP into the private VPC
+
 resource "google_compute_firewall" "allow-iap-private-network" {
-  name          = "allow-iap-private-network"
+  # Rule to allow IAP into the private VPC
+  name          = local.fw_name_ingress_iap
   network       = google_compute_network.spoke-a.name
   direction     = local.direction_ingress
   source_ranges = concat(data.google_netblock_ip_ranges.iap_forwarders.cidr_blocks_ipv4)
@@ -51,7 +63,7 @@ resource "google_compute_firewall" "allow-iap-private-network" {
 # Allow ingress into the untrust VPC
 # (Best practice would be to NOT allow ALL traffic from any source and any protocol)
 resource "google_compute_firewall" "allow-ingress-public-vpc" {
-  name          = "allow-ingress-public-vpc"
+  name          = local.fw_name_ingress_untrust
   network       = google_compute_network.untrust.name
   direction     = local.direction_ingress
   source_ranges = ["0.0.0.0/0"]
@@ -63,7 +75,7 @@ resource "google_compute_firewall" "allow-ingress-public-vpc" {
 
 # All ingress into spoke-a vpc
 resource "google_compute_firewall" "allow-ingress-spoke-a-vpc" {
-  name          = "allow-ingress-spoke-a-vpc"
+  name          = local.fw_name_ingress_all_spoke_a
   network       = google_compute_network.spoke-a.name
   direction     = local.direction_ingress
   source_ranges = ["0.0.0.0/0"]
@@ -75,7 +87,7 @@ resource "google_compute_firewall" "allow-ingress-spoke-a-vpc" {
 
 # All ingress into hub vpc
 resource "google_compute_firewall" "allow-ingress-hub-vpc" {
-  name          = "allow-ingress-hub-vpc"
+  name          = local.fw_name_ingress_all_hub
   network       = google_compute_network.hub.name
   direction     = local.direction_ingress
   source_ranges = ["0.0.0.0/0"]
@@ -131,19 +143,22 @@ resource "google_compute_instance" "pfsense" {
   }
 
   network_interface {
+    # reserve an internal static ip
     network    = google_compute_network.untrust.id
     subnetwork = google_compute_subnetwork.subnet1.id
+    network_ip = cidrhost(local.untrust_cidr, (2 + count.index))
     access_config {}
-    # reserve an internal static ip
   }
   network_interface {
+    # reserve an internal static ip
     network    = google_compute_network.hub.id
     subnetwork = google_compute_subnetwork.subnet0.id
-    # reserve an internal static ip
+    network_ip = cidrhost(local.hub_cidr, (2 + count.index))
   }
   network_interface {
     network    = google_compute_network.transit.id
     subnetwork = google_compute_subnetwork.subnet2.id
+    network_ip = cidrhost(local.transit_cidr, (2 + count.index))
   }
 
   scheduling {
@@ -152,9 +167,8 @@ resource "google_compute_instance" "pfsense" {
   }
 }
 
-# Deploy a test instance in the private VPC
-# without a public IP address
 resource "google_compute_instance" "private-vm" {
+  # Deploy a test instance in the private VPC without a public IP address
   count        = var.instances_count
   name         = "${local.instance_name}-${count.index}"
   machine_type = "g1-small"
@@ -199,10 +213,9 @@ resource "google_compute_instance_group" "fw_umig" {
   ]
 }
 
-# Create the GCP Health Check
 resource "google_compute_health_check" "http" {
-  name = "health-check-http"
-
+  # Create the GCP Health Check
+  name               = "health-check-http"
   timeout_sec        = 5
   check_interval_sec = 10
 
