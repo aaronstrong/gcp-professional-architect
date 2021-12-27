@@ -35,7 +35,7 @@ locals {
 # GCP by default has a deny ingress rule. To allow traffic, you must
 # create exceptions
 # -------------------------------------------------------------------
-// Rule to allow IAP into the private VPC
+# Rule to allow IAP into the private VPC
 resource "google_compute_firewall" "allow-iap-private-network" {
   name          = "allow-iap-private-network"
   network       = google_compute_network.spoke-a.name
@@ -48,8 +48,8 @@ resource "google_compute_firewall" "allow-iap-private-network" {
 }
 
 # Public VPC firewall rule
-// Allow ingress into the untrust VPC
-// (Best practice would be to NOT allow ALL traffic from any source and any protocol)
+# Allow ingress into the untrust VPC
+# (Best practice would be to NOT allow ALL traffic from any source and any protocol)
 resource "google_compute_firewall" "allow-ingress-public-vpc" {
   name          = "allow-ingress-public-vpc"
   network       = google_compute_network.untrust.name
@@ -61,7 +61,7 @@ resource "google_compute_firewall" "allow-ingress-public-vpc" {
   }
 }
 
-// All ingress into spoke-a vpc
+# All ingress into spoke-a vpc
 resource "google_compute_firewall" "allow-ingress-spoke-a-vpc" {
   name          = "allow-ingress-spoke-a-vpc"
   network       = google_compute_network.spoke-a.name
@@ -73,7 +73,7 @@ resource "google_compute_firewall" "allow-ingress-spoke-a-vpc" {
   }
 }
 
-// All ingress into hub vpc
+# All ingress into hub vpc
 resource "google_compute_firewall" "allow-ingress-hub-vpc" {
   name          = "allow-ingress-hub-vpc"
   network       = google_compute_network.hub.name
@@ -85,7 +85,7 @@ resource "google_compute_firewall" "allow-ingress-hub-vpc" {
   }
 }
 
-// Firewall rule for the GCP Health-check
+# Firewall rule for the GCP Health-check
 resource "google_compute_firewall" "default-hc" {
   project = var.project_id
   name    = "firewall-hc"
@@ -97,7 +97,7 @@ resource "google_compute_firewall" "default-hc" {
   source_ranges = concat(data.google_netblock_ip_ranges.health_checkers.cidr_blocks_ipv4, data.google_netblock_ip_ranges.legacy_health_checkers.cidr_blocks_ipv4)
 }
 
-// Firewall rule to allow ingress for the hub vpc
+# Firewall rule to allow ingress for the hub vpc
 resource "google_compute_firewall" "default-ilb-fw" {
   project = var.project_id
   name    = "firewall-ilb-fw"
@@ -134,12 +134,12 @@ resource "google_compute_instance" "pfsense" {
     network    = google_compute_network.untrust.id
     subnetwork = google_compute_subnetwork.subnet1.id
     access_config {}
-    // reserve an internal static ip
+    # reserve an internal static ip
   }
   network_interface {
     network    = google_compute_network.hub.id
     subnetwork = google_compute_subnetwork.subnet0.id
-    // reserve an internal static ip
+    # reserve an internal static ip
   }
   network_interface {
     network    = google_compute_network.transit.id
@@ -185,8 +185,8 @@ resource "google_compute_instance" "private-vm" {
 # will be deployed, but one will be placed in an instance group marked
 # for failover purpose only.
 # -------------------------------------------------------------------
-// Create two instance groups (IG) and put a stateful firewall in each IG
-// Instance Group 1
+# Create two instance groups (IG) and put a stateful firewall in each IG
+# Instance Group 1
 resource "google_compute_instance_group" "fw_umig" {
   count       = var.firewalls_count
   name        = "firewall-umig-${count.index}"
