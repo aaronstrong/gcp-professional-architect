@@ -15,7 +15,7 @@ The terraform code in the repository mimics the diagram very closely. A pair of 
 ## Requirements
 
 * A pfSense image has been created in Google Cloud. If not, [follow this guide](../pfsense/create-pfsense-image).
-* [pfSense has been installed](../pfsense/pfsense-install).
+* [pfSense has been installed](../pfsense/01-pfsense-install).
 
 ### What's Deployed
 
