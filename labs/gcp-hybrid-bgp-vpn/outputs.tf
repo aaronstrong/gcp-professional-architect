@@ -16,4 +16,5 @@ output "vpn_tunnels_names-static" {
 output "ipsec_secret-static" {
   description = "The shared secret is:"
   value       = module.classic_vpn.ipsec_secret-static
+  sensitive   = true
 }
