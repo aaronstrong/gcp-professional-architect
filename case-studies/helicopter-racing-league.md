@@ -101,6 +101,8 @@ Solutions
 * Use Machine learning and TensorFlow to increase predictions
 * TesnorFlow can be deploy on Compute Engine or on GKE. Since we want to be more developers vs operations, lean towards GKE and containers.
 
+> Natural Language API
+* Derive insights from unstructured text using Google machine learning.
 
 ## Diagrams
 Build a streaming video analytics pipeline:
