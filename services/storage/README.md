@@ -59,6 +59,8 @@
     * Network ingress and data transfer within a region is free
     * Network egress charges apply and vary by destination
 * All storage classes accessed through the same APIs
+* With exception to Managed Folders, Cloud Storage operats with a flat namespace, meaning folders don't actually exist within Cloud Storage. The folder name is part of the object's name. The Google Cloud console and Storage CLIs provide the illusion of a hierarchical file tree.
+    * Managed folders - You can apply IAM policies to managed folders to grant principles access only to the objects within the managed folder to finely control access to bojects. You can nest up to 7 levels deep including the parent folder.
 * [Four Storage Classes](https://cloud.google.com/storage/docs/storage-classes)
 
 
