@@ -177,7 +177,7 @@ not ideal for operational or transactional databases
 ## [Persistent Disk](https://cloud.google.com/compute/docs/disks)
 * Block storage for Compute Engine virtual machines
 * The data on each persistent disk is distributed across several physical disks.
-* Persistent disks are located independently from your virtual machine (VM) instances, so you can detach or move persistent disks to keep your data even after you delete your instances.
+* Persistent disks are located independently from your virtual machine (VM) instances, so you can detach or move persistent disks to keep your data even after you delete your instances - which survive VM stoppage.
 * Performance:
     * scales automatically with size
 * Disk Types:
