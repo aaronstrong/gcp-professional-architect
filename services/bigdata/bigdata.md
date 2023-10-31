@@ -19,6 +19,24 @@ The data lifecycle has four steps.
 
 ![](https://cloud.google.com/architecture/images/data-lifecycle-3.svg)
 
+### Cloud SQL
+* Regional, fully-managed relational database service for SQL server, MySQL and PostgreSQL
+* Automatic replication with automatic failover, backup, and point in time recovery
+* Scale manually up to 96 processor cores, more than 624 GB of RAM, and  add read replicas as needed
+* Features include
+     * built-in high availability
+     * Automatically scale storage up to 30TB
+     * Connects with GAE, GCE, GKE and BigQuery
+ 
+### Cloud Spanner
+* Fully managed relational database, up to 99.999% availability, and unlimited scale.
+* Create a Spanner instance by defining instance configuration and compute capacity
+* Use query parameters to increase efficiency and lower costs
+* Features include:
+*   Automatic sharding
+*   External consistency
+*   Backup/Restore nad point in time recovery
+
 ## Process & Analyze
 
 ![](https://cloud.google.com/architecture/images/data-lifecycle-4.svg)
