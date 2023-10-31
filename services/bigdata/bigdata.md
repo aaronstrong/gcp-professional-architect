@@ -19,7 +19,9 @@ The data lifecycle has four steps.
 
 ![](https://cloud.google.com/architecture/images/data-lifecycle-3.svg)
 
-### Cloud SQL
+### Relational Databases
+
+#### Cloud SQL
 * Regional, fully-managed relational database service for SQL server, MySQL and PostgreSQL
 * Automatic replication with automatic failover, backup, and point in time recovery
 * Scale manually up to 96 processor cores, more than 624 GB of RAM, and  add read replicas as needed
@@ -28,7 +30,7 @@ The data lifecycle has four steps.
      * Automatically scale storage up to 30TB
      * Connects with GAE, GCE, GKE and BigQuery
  
-### Cloud Spanner
+#### Cloud Spanner
 * Fully managed relational database, up to 99.999% availability, and unlimited scale.
 * Create a Spanner instance by defining instance configuration and compute capacity
 * Use query parameters to increase efficiency and lower costs
@@ -36,6 +38,42 @@ The data lifecycle has four steps.
 *   Automatic sharding
 *   External consistency
 *   Backup/Restore nad point in time recovery
+
+### NoSQL Databases
+
+### Cloud Bigtable
+* Fully managed, scalable NoSQL database service for large analytical and operational workloads
+* Handles large amounts of data in a key-value store and supports high read and write at low latency
+* Tables stored in instances that contain up to 4 nodes, located in different zones
+* Use cases:
+    * Time-series data
+    * Marketing and financial data
+    * IoT data
+
+### Firestore
+* Fully managed, scalable, serverless **document database service**
+* Live synchronization and offlien mode allow mulit-user, collaborative applications on mobile web
+* Supports Datastore databases and DAtastore API
+* Possible workloads include:
+    * Live asset and activity tracking
+    * Real-time analytics
+    * Media and product catalog
+    * Social user profiles and gaming leaderboards
+ 
+---
+ 
+### Datastream
+* Serverless change data capture (CDC) and replication service
+* Sychrnoize data across hetergenous databases and applications reliably
+* Destinations can be BigQuery or Cloud storage
+
+### Firebase Realtime Database
+* Serverless NoSQL database for storing and syncing data
+* Enhances collaboration among users across devices and web in real time
+
+### MemoryStore
+* In-memory service for Redis and Memcached
+* Provides low latency access and high throughput for heavily accessed data
 
 ## Process & Analyze
 
