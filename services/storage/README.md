@@ -67,7 +67,17 @@
 | `STANDARD` | None      | * >99.99% in multi-regions and dual regions<br> * 99.00% in regions  | Best for frequently accessed data ("hot" data) |
 | `NEARLINE`  | 30 days      | * 99.95% in multi-regions and dual regions<br> * 99.9% in regions | Lower availability, a 30-day min. storage duration like data backup, long-tail multimedia, and data archiving |
 |  `COLDLINE`| 90 days      | * 99.95% in multi-regions and dual-regions<br> * 99.9% in regions      | Mainly for backup or archiving purposes |
-| `ARCHIVE` | 365 days      | * 99.95% in multi-regions and dual-regions<br> * 99.9% in regions | Low-cost highly available for data archive, online backups and DR
+| `ARCHIVE` | 365 days      | * 99.95% in multi-regions and dual-regions<br> * 99.9% in regions | Low-cost highly available for data archive, online backups and DR |
+
+### Availability
+
+The availability of Standard storage data is:
+| Location Type | Availability SLA^1 | Typical monthly availability |
+| --- | --- | --- |
+| multi-region | 99.95% | >99.99% |
+| dual-region | 99.955 | >99.99% |
+| region | 99.9% | 99.99% |
+^1 The availability SLA is the monthly uptime percentage backed by the Cloud Storage SLA.
 
 ![](https://miro.medium.com/max/700/1*Npk19yOdpcVkkATP6AkIkQ.jpeg)
 
