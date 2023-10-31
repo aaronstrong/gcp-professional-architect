@@ -16,6 +16,7 @@ The data lifecycle has four steps.
 ![](https://cloud.google.com/architecture/images/data-lifecycle-2.svg)
 
 ## Store
+![](https://jayendrapatil.com/wp-content/uploads/2021/02/gcp_storage_options_decision_tree.png)
 
 ![](https://cloud.google.com/architecture/images/data-lifecycle-3.svg)
 
