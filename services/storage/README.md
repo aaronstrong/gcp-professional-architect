@@ -8,17 +8,17 @@
 * Horizontal vs Vertical scaling
 
 <b>Overview</b>
-|       | Cloud Datastore | Bigtable | Cloud<br>Storage | Cloud<br>SQL | Cloud<br>Spanner| BigQuery |
-|  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |
-| Type      | NoSQL | NoSQL<br>Wide Column | Blob Storage | Relational<br>SQL-OLTP | Relational<br>SQL-OLTP | Relational<br>SQL-OLAP |
-| Transactions | :heavy_check_mark: | Single-Row     | :x:      |  :heavy_check_mark:     |  :heavy_check_mark:   | :x:      |
-| Complex Queries | :x:      | :x:      | :x:        |  :heavy_check_mark:    |  :heavy_check_mark:     |   :heavy_check_mark:    |
-| Capacity | TBs      | PBs      | PBs      | Up to ~64TB      | PB      | PB      |
-| Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       |
-| Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       |
-| Global :earth_americas:<br>vs<br>Regional :japan: | :japan: | :earth_americas: | :earth_americas: | :japan: | :earth_americas: | :earth_americas: |
-| Horizontal<br>vs<br>Vertical | | | | Vertial | Horizontal| |
-| Managed<br>vs<br>Provisioned | | | | Provisioned |  | Managed |
+|       | Cloud Datastore | Bigtable | Cloud<br>Storage | Cloud<br>SQL | Cloud<br>Spanner| BigQuery | Cloud<br>Firestore |
+|  ---  |  ---  |  ---  |  ---  |  ---  |  ---  |  ---  | --- |
+| Type      | NoSQL | NoSQL<br>Wide Column | Blob Storage | Relational<br>SQL-OLTP | Relational<br>SQL-OLTP | Relational<br>SQL-OLAP | NoSQL |
+| Transactions | :heavy_check_mark: | Single-Row     | :x:      |  :heavy_check_mark:     |  :heavy_check_mark:   | :x:      | ? |
+| Complex Queries | :x:      | :x:      | :x:        |  :heavy_check_mark:    |  :heavy_check_mark:     |   :heavy_check_mark:    | ? |
+| Capacity | TBs      | PBs      | PBs      | Up to ~64TB      | PB      | PB      | ? |
+| Unit Size | 1MB/entity      | ~10MB/cell<br>~100MB/row     | 5TB per obj.      | Depends on DB engine      | 10,240 MiB/row      | 19MB/row       | ? |
+| Workload type | App Engine      | Flat data, heavy read/write events, analytical data      | Structured or unstructured binary or object data      | Web apps       | Large-scale db apps      | Interactive quering, offlien anayltics       | ? |
+| Global :earth_americas:<br>vs<br>Regional :japan: | :japan: | :earth_americas: | :earth_americas: | :japan: | :earth_americas: | :earth_americas: | ? |
+| Horizontal<br>vs<br>Vertical | | | | Vertial | Horizontal| | ? |
+| Managed<br>vs<br>Provisioned | | | | Provisioned |  | Managed | ? |
 
 
 |       |   Relational    |  Relational     |  NoSQL/Nonrelational     |  NoSQL/Nonrelational  | NoSQL/Nonrelational       | NoSQL/Nonrelational      |
