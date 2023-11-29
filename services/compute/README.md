@@ -177,6 +177,7 @@ gcloud container clusters resize `CLUSTER_NAME` --node-pool `POOL_NAME` \
 ```
 ## Different Controls for managing pods in a cluster
 Here's a comparison of four key controllers: StatefulSet, Replication Controller, Deployment, and DaemonSet.
+
 ### 1. StatefulSet
 
 - **Purpose**: Designed for applications that require a stable, unique network identifier, stable storage, and ordered, graceful deployment and scaling.
