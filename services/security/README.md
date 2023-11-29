@@ -1,4 +1,4 @@
-| Feature/Aspect | Cloud EKM | Cloud KMS | Cloud HSM | Secret Manager |
+| Feature/Aspect | Cloud EKM<br>Cloud External Key Management | Cloud KMS<br>Cloud Key Management Service| Cloud HSM<br>Cloud Hardware Security Module | Secret Manager |
 |----------------|-----------|-----------|-----------|----------------|
 | **Primary Use** | Integrates external key management systems with Google Cloud services | Manages cryptographic keys for your cloud services | Offers hardware-based key management and cryptography | Manages and stores API keys, passwords, certificates, and other sensitive data |
 | **Key Storage** | Keys are stored in an external, customer-controlled environment | Keys are stored in Google's cloud infrastructure | Keys are stored in hardware security modules in Google's data centers | Secrets are stored in Google's infrastructure |
