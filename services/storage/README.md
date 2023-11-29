@@ -159,6 +159,14 @@ not ideal for operational or transactional databases
     * Analytical reporting on large data
     * Data science and advanced analyses
     * Big data processing using SQL
+ * [Federated Queries](https://cloud.google.com/bigquery/docs/federated-queries-intro)
+   * Federated queries let you send a query statement to Cloud Spanner or Cloud SQL databases and get the result back as a temporary table.
+   * Federated queries use the BigQuery Connection API to establish a connection with Spanner or Cloud SQL.
+   * In your query, you use the EXTERNAL_QUERY function to send a query statement to the external database.
+   * Supported data stores include `Cloud Spanner` and `Cloud SQL`
+        * **Cloud Spanner** - BigQuery Spanner federation enables BigQuery to query data residing in Spanner in real-time, without copying or moving data.
+        * **Cloud SQL** - BigQuery Cloud SQL federation enables BigQuery to query data residing in Cloud SQL in real time, without copying or moving data.
+        - Supports both MySQL (2nd Gen) and PostgreSQL
 
 ## [Memorystore](https://cloud.google.com/memorystore)
 * provides scalable, secure, and highly available in-memory service for Redis and Memcached.
