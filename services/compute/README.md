@@ -175,6 +175,52 @@ Resize a node pool
 gcloud container clusters resize `CLUSTER_NAME` --node-pool `POOL_NAME` \
     --num-nodes `NUM_NODES`
 ```
+## Different Controls for managing pods in a cluster
+Here's a comparison of four key controllers: StatefulSet, Replication Controller, Deployment, and DaemonSet.
+### 1. StatefulSet
+
+- **Purpose**: Designed for applications that require a stable, unique network identifier, stable storage, and ordered, graceful deployment and scaling.
+- **Use Case**: Ideal for stateful applications like databases (e.g., MySQL, MongoDB) where the identity of each pod (like a unique name) is important.
+- **Features**:
+  - Stable, unique network identifiers.
+  - Stable storage (persistent volume per instance).
+  - Ordered, automated rolling updates.
+- **Scaling**: Can scale up or down, but with an ordered and graceful process.
+- **Update Strategy**: Supports rolling updates with an option to control the order and timing.
+
+### 2. Replication Controller
+
+- **Purpose**: Ensures a specified number of pod replicas are running at any given time.
+- **Use Case**: Mostly used in earlier versions of Kubernetes, now often replaced by Deployments for stateless applications.
+- **Features**:
+  - Maintains a constant number of pods.
+  - Can be used to scale a service and provide load balancing.
+- **Scaling**: Can manually scale the number of replicas.
+- **Update Strategy**: Does not support rolling updates (use Deployments instead).
+
+### 3. Deployment
+
+- **Purpose**: Provides declarative updates for Pods and ReplicaSets.
+- **Use Case**: Suitable for stateless applications and ideal for most scenarios where you need to manage a set of identical pods.
+- **Features**:
+  - Supports rolling updates.
+  - Allows rollback to an earlier Deployment revision.
+  - Scales up and down.
+  - Maintains a defined state of the application.
+- **Scaling**: Automated scaling and self-healing (maintaining the desired state).
+- **Update Strategy**: Supports rolling updates for zero-downtime deployments.
+
+### 4. DaemonSet
+
+- **Purpose**: Ensures that all (or some) nodes run a copy of a pod.
+- **Use Case**: Useful for running a pod on all nodes (or specific nodes). Commonly used for node-level services like log collectors, monitoring agents, etc.
+- **Features**:
+  - One pod per node (or per specified nodes).
+  - Adds pods automatically to new nodes that match its selection criteria.
+  - Useful for cluster-wide services.
+- **Scaling**: Scales with the number of nodes, automatically adjusting as nodes are added or removed.
+- **Update Strategy**: Can be configured for rolling updates across nodes.
+
 
 ## Networking
 
