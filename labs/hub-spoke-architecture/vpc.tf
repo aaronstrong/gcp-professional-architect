@@ -47,7 +47,10 @@ module "landing-trusted-vpc-fireall-rules" {
       allow = [
         {
           protocol = "tcp"
-          ports    = ["22"]
+          ports    = ["22", "80", "443"]
+        },
+        {
+          protocol = "icmp"
         }
       ]
     }
@@ -102,7 +105,10 @@ module "landing-untrusted-vpc-fireall-rules" {
       allow = [
         {
           protocol = "tcp"
-          ports    = ["22"]
+          ports    = ["22", "80", "443"]
+        },
+        {
+          protocol = "icmp"
         }
       ]
     }

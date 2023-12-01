@@ -12,13 +12,32 @@ variable "prefix" {
   # tfdoc:variable:source 0-bootstrap
   description = "Prefix used for resources that need unique names. Use 9 characters or less."
   type        = string
-  default = "test"
+  default     = "test"
 
   validation {
     condition     = try(length(var.prefix), 0) < 10
     error_message = "Use a maximum of 9 characters for prefix."
   }
 }
+
+variable "org_id" {
+  description = "The organization ID."
+  type        = string
+  default     = null
+}
+
+variable "billing_account" {
+  description = "The ID of the billing account to associate this project with"
+  type        = string
+}
+
+variable "folder_id" {
+  description = "The ID of a folder to host this project"
+  type        = string
+  default     = ""
+}
+
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
@@ -55,5 +74,13 @@ variable "regions" {
   default = {
     primary   = "us-central1"
     secondary = "us-east1"
+  }
+}
+
+variable "dns" {
+  description = "Onprem DNS resolvers."
+  type        = map(list(string))
+  default = {
+    onprem = ["192.168.2.90"]
   }
 }

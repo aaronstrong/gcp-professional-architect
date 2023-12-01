@@ -4,10 +4,15 @@ output "trusted-vpc-firewall-rules" {
   value       = module.landing-trusted-vpc-fireall-rules
 }
 
-# output "landing-trusted-vpc" {
-#   value = module.landing-trusted-vpc
-# }
+output "landing-trusted-vpc" {
+  value = module.landing-trusted-vpc
+}
 
 # output "landing-untrusted-vpc" {
 #   value = module.landing-untrusted-vpc
 # }
+
+output "ilb-nva-trusted" {
+  value = module.ilb-nva-trusted
+}
+

@@ -35,12 +35,12 @@ locals {
 }
 
 output "nva_locality" {
-    value = local.nva_locality
+  value = local.nva_locality
 }
 
 # NVA Config
 module "nva-cloud-config" {
-  source               = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/cloud-config-container/simple-nva"
+  source               = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/cloud-config-container/simple-nva?ref=v27.0.0"
   enable_health_checks = true
   network_interfaces   = local.routing_config
 }
@@ -88,7 +88,7 @@ module "nva-template" {
 
 module "nva-mig" {
   for_each          = local.nva_locality
-  source            = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/compute-mig"
+  source            = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/compute-mig?ref=v27.0.0"
   project_id        = var.project_id
   location          = each.value.region
   name              = "nva-cos-${each.key}"
@@ -174,4 +174,22 @@ module "ilb-nva-trusted" {
       port = 22
     }
   }
+}
+
+resource "google_compute_route" "ilb-default-route-primary" {
+  project      = var.project_id
+  name         = "ilb-default-route-primary"
+  dest_range   = "0.0.0.0/0"
+  network      = module.landing-trusted-vpc.network_self_link
+  next_hop_ilb = module.ilb-nva-trusted["primary"].id[""]
+  priority     = "800"
+}
+
+resource "google_compute_route" "ilb-default-route-secondary" {
+  project      = var.project_id
+  name         = "ilb-default-route-secondary"
+  dest_range   = "0.0.0.0/0"
+  network      = module.landing-trusted-vpc.network_self_link
+  next_hop_ilb = module.ilb-nva-trusted["secondary"].id[""]
+  priority     = "900"
 }
