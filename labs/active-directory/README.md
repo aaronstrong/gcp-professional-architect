@@ -64,15 +64,15 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 1. After the instance has rebooted, RDP back into the instance.
 1. Open up a [PowerShell prompt with administrator privileges](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7.1#with-administrative-privileges-run-as-administrator):
     ```bash
-    New-ADReplicationSite -Name "GCP-us-central1" -Description "Site1"
-    New-ADReplicationSite -Name "GCP-us-east1" -Description "Site2"
+    New-ADReplicationSite -Name "on-prem-location" -Description "Site1"
+    New-ADReplicationSite -Name "GCP-us-central1" -Description "Site2"
     ```
 
 ### Configure site links for Active Directory Replication
 
 1. Open up a elevated PowerShell shell prompt:
     ```bash
-    New-ADReplicationSiteLink -Name "GCP-us-central1-us-east1" -SitesIncluded GCP-us-central1,GCP-us-east1 -Cost 250 -ReplicationFrequencyInMinutes 15 -InterSiteTransportProtocol IP
+    New-ADReplicationSiteLink -Name "on-prem-GCP-us-central1" -SitesIncluded on-prem-location,GCP-us-central1 -Cost 250 -ReplicationFrequencyInMinutes 15 -InterSiteTransportProtocol IP
     ```
 
 ### Configure Subnets for Active Directory Sites
@@ -81,7 +81,7 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     ```bash
     New-ADReplicationSubnet -Name "10.0.0.0/16" -Site "GCP-us-central1"
 
-    New-ADReplicationSubnet -Name "10.1.0.0/16" -Site "GCP-us-east1"
+    New-ADReplicationSubnet -Name "192.168.0.0/24" -Site "on-prem-location"
     ```
 
 ### Add `test-us-central1-dc-01` to the appropriate site `GCP-us-central`
@@ -192,3 +192,4 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
 ## References
 * [Deploying Microsoft Active Domain Controllers with Advanced Networking Configuration on Google Cloud](https://cloud.google.com/architecture/deploying-microsoft-active-directory-domain-controllers-with-advanced-networking-configuration-on-gcp)
 * [Microsoft SQL AlwaysOn Deployment](https://github.com/GoogleCloudPlatform/community/blob/master/tutorials/sql-server-ao-single-subnet/index.md)
+* [Google Cloud Cloud DNS Best Practices](https://cloud.google.com/dns/docs/best-practices)

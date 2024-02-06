@@ -11,7 +11,7 @@ resource "google_compute_firewall" "allow-iap-private-network" {
   name          = module.fw_iap_allow.id
   network       = google_compute_network.hub.name
   direction     = "INGRESS"
-  source_ranges = ["35.235.240.0/20", "0.0.0.0/0"]
+  source_ranges = ["35.235.240.0/20", "192.168.0.0/16"]
   allow {
     protocol = "tcp"
     ports    = ["22", "3389"]
