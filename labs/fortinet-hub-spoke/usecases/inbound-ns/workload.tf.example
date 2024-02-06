@@ -1,0 +1,104 @@
+resource "google_compute_address" "wrkld_tier1" {
+  project      = local.day0.project
+  name         = "${local.day0.prefix}ip-wrkld-tier1"
+  region       = local.day0.region
+  address_type = "INTERNAL"
+  subnetwork   = local.day0.internal_subnet
+}
+
+resource "google_compute_address" "wrkld_tier2" {
+  project      = local.day0.project
+  name         = "${local.day0.prefix}ip-wrkld-tier2"
+  region       = local.day0.region
+  address_type = "INTERNAL"
+  subnetwork   = local.day0.internal_subnet
+}
+
+resource "google_compute_instance" "wrkld_proxy" {
+  project      = local.day0.project
+  name         = "${local.day0.prefix}wrkld-tier1-proxy"
+  zone         = "${local.day0.region}-b"
+  machine_type = "e2-micro"
+  tags         = ["tier1"]
+
+  allow_stopping_for_update = true # Allows Terraform to stop and start instance when new configs (like different hardware) are needed
+
+  scheduling {
+    preemptible        = true
+    automatic_restart  = false
+    provisioning_model = "SPOT"
+  }
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+    }
+  }
+  network_interface {
+    subnetwork = local.day0.internal_subnet
+    network_ip = google_compute_address.wrkld_tier1.address
+  }
+  #   depends_on = [
+  #     module.peer1,
+  #     module.outbound
+  #   ]
+  metadata_startup_script = <<EOT
+#!/bin/bash
+
+# Install Nginx
+sudo apt-get update 
+sudo apt-get install -y nginx
+
+# Create Nginx configuration file
+sudo echo
+"server {
+    listen 8080;
+    location / {
+    proxy_pass http://${google_compute_address.wrkld_tier2.address};
+    }
+}" > /etc/nginx/sites-available/proxy.conf
+
+# Enable the Nginx configuration
+sudo ln -s /etc/nginx/sites-available/proxy.conf /etc/nginx/sites-enabled/proxy
+
+# Restart Nginx service
+sudo systemctl restart nginx
+EOT
+}
+
+
+
+resource "google_compute_instance" "wrkld_websrv" {
+  project      = local.day0.project
+  name         = "${local.day0.prefix}wrkld-tier2-websrv"
+  zone         = "${local.day0.region}-b"
+  machine_type = "e2-micro"
+  tags         = ["tier2"]
+
+  allow_stopping_for_update = true # Allows Terraform to stop and start instance when new configs (like different hardware) are needed
+
+  scheduling {
+    preemptible        = true
+    automatic_restart  = false
+    provisioning_model = "SPOT"
+  }
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+    }
+  }
+  network_interface {
+    subnetwork = local.day0.internal_subnet
+    network_ip = google_compute_address.wrkld_tier2.address
+  }
+  #   depends_on = [
+  #     module.peer2,
+  #     module.outbound
+  #   ]
+  metadata_startup_script = <<EOT
+sudo apt update;
+sudo apt -y install nginx
+sudo echo 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' > /var/www/html/eicar.com
+EOT
+}

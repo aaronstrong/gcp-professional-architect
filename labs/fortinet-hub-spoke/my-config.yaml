@@ -1,0 +1,67 @@
+config system global
+  set hostname testfgtvm-uc1
+end
+config system probe-response
+    set mode http-probe
+    set http-probe-value OK
+    set port 8008
+end
+config system api-user
+  edit terraform
+    set api-key JVNyyaKP19JnohIkeZJNX6I0VXV2vr
+    set accprofile "prof_admin"
+    config trusthost
+        end
+  next
+end
+config system dns
+  set primary 169.254.169.254
+  set protocol cleartext
+  unset secondary
+end
+config system interface
+  edit port1
+    set mode static
+    set ip 34.122.158.21/32
+    set allowaccess probe-response ping https ssh fgfm
+  next
+  edit port2
+    set mode static
+    set allowaccess ping
+    set ip 10.64.0.6/32
+    set secondary-IP enable
+    config secondaryip
+      edit 0
+      set ip 10.64.0.7/32
+      set allowaccess probe-response ping https ssh fgfm
+      next
+    end
+  next
+  edit "probe"
+    set vdom "root"
+    set ip 169.254.255.100 255.255.255.255
+    set allowaccess probe-response
+    set type loopback
+next
+end
+config router static
+  edit 0
+    set device port1
+    set gateway 10.64.128.1
+  next
+  edit 0
+    set device port2
+    set dst 10.0.0.0/255.0.0.0
+    set gateway 10.64.0.1
+  next
+  edit 0
+    set device port2
+    set dst 35.191.0.0/16
+    set gateway 10.64.0.1
+  next
+  edit 0
+    set device port2
+    set dst 130.211.0.0/22
+    set gateway 10.64.0.1
+  next
+end
