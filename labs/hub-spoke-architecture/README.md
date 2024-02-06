@@ -24,3 +24,8 @@
 
 
 **Note**: Cloud Router for the Cloud VPN <i>MUST</i> be configured to use [custom route advertisement](https://cloud.google.com/network-connectivity/docs/router/concepts/overview#route-advertisement-custom).
+
+
+
+----
+

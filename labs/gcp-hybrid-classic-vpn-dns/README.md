@@ -96,6 +96,7 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     -SafeModeAdministratorPassword $safeModeAdminstratorPassword `
     -Force:$true
     ```
+**NOTE** If your PowerShell prompt does not recognize the `Install-ADDSForst` you must install the module by going to SErver Manager > Add Roels and Features Wizard > Select Active Directory Domain Services and follow the wizard.
 
 ### Configure Active Directory Sites
 

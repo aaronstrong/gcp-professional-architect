@@ -1,7 +1,6 @@
 # -------------------------------------------------------------------
 # DEPLOY CLOUD DNS
-# Use Cloud DNS and forward any internal requests to the two
-# Domain Controllers
+# Use Cloud DNS and forward any internal requests
 # -------------------------------------------------------------------
 resource "google_dns_managed_zone" "private-zone" {
   name        = "private-zone"
