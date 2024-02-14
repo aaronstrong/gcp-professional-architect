@@ -6,6 +6,10 @@ This tutorial demonstrates how to use Terraform to deploy the High Availability 
 
 Deploy a HA VPN with a 1-peer addresses configured on Google Cloud.
 
+* Create 1 private Cloud DNS domain
+* Create 1 forwarding Cloud DNS domain pointed to on-premises name server endpoint
+* Create an inbound policy
+
 ## Architecture
 
 ![](./architecture.png)
@@ -62,3 +66,6 @@ Confirm you're able to reach the Apache web server from the on-premises data cen
 
 * [HA VPN](https://cloud.google.com/network-connectivity/docs/vpn/concepts/topologies#1-peer-2-addresses)
 * [Third party VPNs](https://cloud.google.com/network-connectivity/docs/vpn/how-to/interop-guides)
+* [Access VMs using Internal DNS](https://cloud.google.com/compute/docs/networking/using-internal-dns#gcloud)
+* [Cloud DNS Demo](https://www.youtube.com/watch?v=hOUlt9Nylq8)
+* [GCP Centralized DNS Setup](https://cloud.google.com/architecture/security-foundations/networking#dns-setup)
