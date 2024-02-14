@@ -8,11 +8,6 @@ variable "project_id" {
   type        = string
 }
 
-variable "peer_ips" {
-  description = "External IP address"
-  type        = list(string)
-}
-
 variable "remote_subnet" {
   description = "The subnets at the remote location. Use the on-premises CIDR."
   type        = list(string)
@@ -22,6 +17,12 @@ variable "remote_subnet" {
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.
 # ---------------------------------------------------------------------------------------------------------------------
+
+# variable "peer_ips" {
+#   description = "External IP address. If empty, auto-detect own IP address."
+#   type        = list(string)
+#   default     = []
+# }
 
 variable "region" {
   description = "The GCP region to deploy resources."
