@@ -41,3 +41,15 @@ variable "shared_secret" {
   type        = string
   default     = "mySecret"
 }
+
+variable "target_name_server_addresses" {
+  description = "The IP addresses of the on-prem name servers"
+  type        = list(string)
+  default     = ["192.168.2.90"]
+}
+
+variable "domain_name" {
+  description = "Domain name. Name should be what's on-premises."
+  type        = string
+  default     = "contoso.local"
+}
