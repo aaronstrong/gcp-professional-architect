@@ -45,6 +45,9 @@ The code here deploys Microsoft Active Directory Domain Controllers including th
     $domainMode = "Win2012R2"
     $forestMode = "Win2012R2"
 
+    # Install Module
+    Install-WindowsFeature -Name RSAT-AD-PowerShell
+
     # Import-Module ADDSDeployment
     Install-ADDSForest `
     -CreateDnsDelegation:$false  `
