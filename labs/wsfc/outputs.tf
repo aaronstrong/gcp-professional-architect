@@ -4,6 +4,7 @@ output "cluster_account" {
 }
 
 output "private_addresses" {
+  description = "List of private addresses and assigned instances"
   value = {
     for key, addr in google_compute_address.main :
     key => addr.address
