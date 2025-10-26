@@ -25,6 +25,7 @@ The code in this repo will deploy the following:
 
 <!-- BEGIN_TF_DOCS -->
 
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -54,7 +55,7 @@ The code in this repo will deploy the following:
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_account"></a> [cluster\_account](#output\_cluster\_account) | The Acitve Directory account for cluster setup |
-| <a name="output_private_addresses"></a> [private\_addresses](#output\_private\_addresses) | n/a |
+| <a name="output_private_addresses"></a> [private\_addresses](#output\_private\_addresses) | List of private addresses and assigned instances |
 | <a name="output_public_ip_active_directory"></a> [public\_ip\_active\_directory](#output\_public\_ip\_active\_directory) | The public ip assigned to the active directory instance |
 <!-- END_TF_DOCS -->
 ## References
