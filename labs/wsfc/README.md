@@ -9,7 +9,7 @@ The code here deploys a failover cluster using Windows Server on Google Cloud.
 The code in this repo will deploy the following:
 
 * A two node cluster running in GCP
-* An Active Directory domain controller will be deployed
+* An Active Directory domain controller will be deployed with a fileshare witness
 
 ## Features
 
@@ -22,6 +22,16 @@ The code in this repo will deploy the following:
 ### Pre-requirements
 * A GCP project must already exist
 * IAP API must be enabled and appropriate IAM permissions to allow connectivity to the private test instance
+
+## Setup Process
+
+### Active Directory
+
+* This repo will deploy a single Active Directory domain controller with a default name of `test-dc-01`.
+* Terraform utilizes the `sysprep-specialize-script-ps1` in the [metadata](./vm-dc.tf#L41) to install the necessary services like `AD-Domain-Services`. This script is ran one time during the inital boot.
+* After the services in the metedata have been installed, the instance will restart and launch the script defined in the `windows-startup-script-ps1` on each reboot. This script called [dc-startup](./scripts/dc-startup.ps1), contains the logic to configure a Windows Domain.
+
+
 
 <!-- BEGIN_TF_DOCS -->
 
