@@ -35,11 +35,57 @@ The code in this repo will deploy the following:
 
 * As the Active Directory instance installs ADDS and configures a new Windows Domain, two new Windows Server Failover Clusters will be deployed.
 * Terraform utilizes the `sysprep-specialize-script-ps` in the [metadata](./vm-cluster.tf#L39) to launch the [specialize-node](./scripts/specialize-node.ps1) script on the first initial boot. The script will install the necessary features for WFSC and IIS. The script will add any local Windows Firewall rules, add a custom default webpage with the hostname, and set the NIC with a static IP address. A requirement for Windows Failover clustering.
-* After the first script is ran, a second script called [join-domain](./scripts/join-domain.ps1) runs on each sequential reboot because of the `windows-startup-script-ps1` [metadata](./vm-cluster.tf#L40) file being set. The script has logic in it to wait for the Windows Domain to come online. The script will automatically join the instance to the domain. After the instance has joined the Windows Domain, the script will again and this time it will detect it's part of a domain and generate the necessary script to create a new Failover cluster. This file will be located on the instance and the path will be [C:\InitializeCluster.ps1](./scripts/join-domain.ps1#L83)
+* After the first script runs, a second script called [join-domain](./scripts/join-domain.ps1) executes on every reboot because the `windows-startup-script-ps1` [metadata](./vm-cluster.tf#L40) is set. This script waits for the Windows Domain to become available, then automatically joins the instance to the domain. Once the instance is part of the domain, the script runs again. This time, it detects the domain membership and generates a script to create a new Failover Cluster. That generated script is saved on the instance at:
+[C:\InitializeCluster.ps1](./scripts/join-domain.ps1#L83).
 
+### Manual Steps
 
+This repository has two manual steps. 1) That sets up the initial windows failover cluster and 2) to create an IIS service within the failover clustering.
 
+<u>Setup Initial Windows Failover Clustering </u>
 
+* When both WSFC servers have been joined to the domain, use the `test-dc-01` as a jump box to log into `wsfc-1` to run the local script to initiate the Windows Failover clustering. Use RDP to login into `test-dc-01` using the [cluster-admin](./scripts/dc-startup%20copy.ps1#L20) account.
+* After an RDP connection is made, make another RDP connection from `test-dc-01` to `wsfc-1`, using the same `cluster-admin` account. When you've connected to `wsfc-1`, open up PowerShell 6 as an administrator. Navigate to `C:\InitializeCluster.ps1` and run the script.
+* To confirm things are working, you can open the Failover Cluster Manager under Server Manager and validate a new cluster called `testcluster` shows up.
+
+<u>Create an IIS Service within Failover Clustering</u>
+
+* In Failover Cluster Manager, in the Actions pane, selelct Configure Role.
+* In the Select Role page, select Other Server.
+* In the Client Access Point page, enter the name IIS.
+* Set the address to 10.0.0.9.
+* Skip Select Storage and Select Resource Types.
+* Confirm the settings and then click Finish.
+![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-add-role.png)
+
+### Validating the load balancer
+
+After your internal load balancer is running, you can inspect its status to validate that it can find a healthy instance, and then test failover again.
+
+1. In the Google Cloud console, go to the Load balancing page.
+
+2. Click the name of the load balancer (`wsfc-lb`).
+
+    In the Backend section of the summary, you should see the instance groups listed.
+
+    In the following image from the details page of the wsfc-lb load balancer, instance group wsfc-group-1 contains the active node, as indicated by 1 / 1 in the Healthy column. Instance group wsfc-group-2 contains the inactive node, as indicated by 0 / 1.
+
+    Load balancer status shows 1 / 1 healthy instances in instance group
+    wsfc-group-1, which indicates that it contains the active node.
+    ![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-ilb-validation.png)
+
+    If both instance groups show 0 / 1, the load balancer might still be syncing with the nodes. Sometimes, you need to do at least one failover action to get the load balancer to find the IP address.
+
+3. In Failover Cluster Manager, expand the cluster name and click on Roles. In the Owner Node column, note the server name for the IIS role.
+
+4. Start a failover by right-clicking the IIS role and selecting Move > Best Possible Node. This action moves the role to the other node, as shown in the Owner Node column.
+![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-owner-node-field.png)
+
+5. Wait until the Status shows Running.
+
+6. Return to the Load balancer details page, click Refresh, and verify that the 1 / 1 and 0 / 1 values in the Healthy column have switched instance groups.
+
+   ![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-ilb-status.png)
 
 <!-- BEGIN_TF_DOCS -->
 
