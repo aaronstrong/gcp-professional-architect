@@ -4,7 +4,7 @@ The code here deploys a failover cluster using Windows Server on Google Cloud.
 
 ## Architecture
 
-![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-architecture.svg)
+![](./docs/gcp-windows-failover-cluster.png)
 
 The code in this repo will deploy the following:
 
@@ -56,6 +56,7 @@ This repository has two manual steps. 1) That sets up the initial windows failov
 * Set the address to 10.0.0.9.
 * Skip Select Storage and Select Resource Types.
 * Confirm the settings and then click Finish.
+  
 ![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-add-role.png)
 
 ### Validating the load balancer
