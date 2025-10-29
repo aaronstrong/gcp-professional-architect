@@ -29,7 +29,15 @@ The code in this repo will deploy the following:
 
 * This repo will deploy a single Active Directory domain controller with a default name of `test-dc-01`.
 * Terraform utilizes the `sysprep-specialize-script-ps1` in the [metadata](./vm-dc.tf#L41) to install the necessary services like `AD-Domain-Services`. This script is ran one time during the inital boot.
-* After the services in the metedata have been installed, the instance will restart and launch the script defined in the `windows-startup-script-ps1` on each reboot. This script called [dc-startup](./scripts/dc-startup.ps1), contains the logic to configure a Windows Domain.
+* After the services in the metedata have been installed, the instance will restart and launch the script defined in the `windows-startup-script-ps1` on each reboot. This script called [dc-startup](./scripts/dc-startup.ps1), contains the logic to configure a Windows Domain and after a new Windows Domain is configured, the logic in the script will create a second user account and make it a Domain Admin. The logic will then wait for the other instances to join the domain.
+
+### Windows Failover Clusters
+
+* As the Active Directory instance installs ADDS and configures a new Windows Domain, two new Windows Server Failover Clusters will be deployed.
+* Terraform utilizes the `sysprep-specialize-script-ps` in the [metadata](./vm-cluster.tf#L39) to launch the [specialize-node](./scripts/specialize-node.ps1) script on the first initial boot. The script will install the necessary features for WFSC and IIS. The script will add any local Windows Firewall rules, add a custom default webpage with the hostname, and set the NIC with a static IP address. A requirement for Windows Failover clustering.
+* After the first script is ran, a second script called [join-domain](./scripts/join-domain.ps1) runs on each sequential reboot because of the `windows-startup-script-ps1` [metadata](./vm-cluster.tf#L40) file being set. The script has logic in it to wait for the Windows Domain to come online. The script will automatically join the instance to the domain. After the instance has joined the Windows Domain, the script will again and this time it will detect it's part of a domain and generate the necessary script to create a new Failover cluster. This file will be located on the instance and the path will be [C:\InitializeCluster.ps1](./scripts/join-domain.ps1#L83)
+
+
 
 
 
