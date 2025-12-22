@@ -6,11 +6,15 @@
 
 resource "google_compute_instance" "dc-1" {
   // You would not make a production ADDC public to the internet. BUT, this is a lab :)
-  name           = module.gce_dc_one.id
-  machine_type   = var.dc_machine_type
-  zone           = "${var.region}-b"
-  tags           = ["dc", "dns"]
-  labels         = module.gce_dc_one.tags
+  #name           = module.gce_dc_one.id
+  name         = var.dc_name
+  machine_type = var.dc_machine_type
+  zone         = "${var.region}-b"
+  tags         = ["dc", "dns"]
+  labels = {
+    "owner"       = "dc"
+    "application" = "active_directory"
+  }
   can_ip_forward = true
 
   boot_disk {

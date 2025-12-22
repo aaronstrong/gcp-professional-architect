@@ -12,8 +12,9 @@ variable "project_id" {
 # -------------------------------------------------------------------
 
 variable "region" {
-  type    = string
-  default = "us-central1"
+  description = "The region to deploy resources into."
+  type        = string
+  default     = "us-central1"
 }
 
 variable "environment" {
@@ -50,6 +51,12 @@ variable "dc_machine_type" {
   description = "Machine type to deploy for the Domain Controller"
   type        = string
   default     = "e2-medium"
+}
+
+variable "dc_name" {
+  description = "Name of the Active Directory Domain Controller"
+  type        = string
+  default     = "test-dc-01"
 }
 
 variable "project_services" {

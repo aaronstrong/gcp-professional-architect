@@ -23,41 +23,33 @@ The code in this repo will deploy the following:
 * A GCP project must already exist
 * IAP API must be enabled and appropriate IAM permissions to allow connectivity to the private test instance
 
-## Setup Process
+## Getting Started
 
-### Active Directory
+1. Run terraform commands.
 
-* This repo will deploy a single Active Directory domain controller with a default name of `test-dc-01`.
-* Terraform utilizes the `sysprep-specialize-script-ps1` in the [metadata](./vm-dc.tf#L41) to install the necessary services like `AD-Domain-Services`. This script is ran one time during the inital boot.
-* After the services in the metedata have been installed, the instance will restart and launch the script defined in the `windows-startup-script-ps1` on each reboot. This script called [dc-startup](./scripts/dc-startup.ps1), contains the logic to configure a Windows Domain and after a new Windows Domain is configured, the logic in the script will create a second user account and make it a Domain Admin. The logic will then wait for the other instances to join the domain.
+```hcl
+terraform init
+terraform validate
+terraform apply
+```
+2. When Terraform finishes, there will be three new instances named `test-dc-01`, `wsfc-1`, and `wsfc-2`.
+3. After `test-dc-01`, the instance for the domain controller, is up and all the scripts to build a new forest are complete, the other instances will automatically join to the domain. Wait for those to complete. Look at the logs for each instance to the track the changes.
+4. Use the Terraform output value `public_ip_active_directory` and use RDP to remote into this jumpbox.
+   1. There are 2 sets of credentials that can be used. Either use the default `Administrator` account with the secret stored in Secrets Managers -or- monitor the `test-dc-01` console logs and wait for the scripts to finish creating the `cluster-admin` account with the default password of [Password1](./variables.tf:L122).
+5. After both instances are domain joined, remote into `wsfc-1` from the jumpbox.
+   1. use the `cluster-admin` and password to login.
+6. When you've connected to `wsfc-1`, open up PowerShell 6 as an administrator. Navigate to `C:\Initializecluster.ps1` and run the script.
+   1. To confirm things are working, you can open the Failover Cluster Manager under Server Manager and validate a new cluster called `testcluster` shows up.
+7. Create an IIS Service within Failover Clustering.
+   1. In Failover Cluster Manager, in the Action pane, select Configure Role.
+   2. In the Select Role page, select other Server.
+   3. In the <b>Client Access Point</b> page, enter the name <b>IIS</b>.
+   4. Set the address to <b>10.0.0.9</b>.
+   5. Skip <b>Select Storage</b> and skip Resource Types.
+   6. Confirm the settings and then click Finish.
+   ![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-add-role.png)
 
-### Windows Failover Clusters
-
-* As the Active Directory instance installs ADDS and configures a new Windows Domain, two new Windows Server Failover Clusters will be deployed.
-* Terraform utilizes the `sysprep-specialize-script-ps` in the [metadata](./vm-cluster.tf#L39) to launch the [specialize-node](./scripts/specialize-node.ps1) script on the first initial boot. The script will install the necessary features for WFSC and IIS. The script will add any local Windows Firewall rules, add a custom default webpage with the hostname, and set the NIC with a static IP address. A requirement for Windows Failover clustering.
-* After the first script runs, a second script called [join-domain](./scripts/join-domain.ps1) executes on every reboot because the `windows-startup-script-ps1` [metadata](./vm-cluster.tf#L40) is set. This script waits for the Windows Domain to become available, then automatically joins the instance to the domain. Once the instance is part of the domain, the script runs again. This time, it detects the domain membership and generates a script to create a new Failover Cluster. That generated script is saved on the instance at:
-[C:\InitializeCluster.ps1](./scripts/join-domain.ps1#L83).
-
-### Manual Steps
-
-This repository has two manual steps. 1) That sets up the initial windows failover cluster and 2) to create an IIS service within the failover clustering.
-
-<u>Setup Initial Windows Failover Clustering </u>
-
-* When both WSFC servers have been joined to the domain, use the `test-dc-01` as a jump box to log into `wsfc-1` to run the local script to initiate the Windows Failover clustering. Use RDP to login into `test-dc-01` using the [cluster-admin](./scripts/dc-startup%20copy.ps1#L20) account.
-* After an RDP connection is made, make another RDP connection from `test-dc-01` to `wsfc-1`, using the same `cluster-admin` account. When you've connected to `wsfc-1`, open up PowerShell 6 as an administrator. Navigate to `C:\InitializeCluster.ps1` and run the script.
-* To confirm things are working, you can open the Failover Cluster Manager under Server Manager and validate a new cluster called `testcluster` shows up.
-
-<u>Create an IIS Service within Failover Clustering</u>
-
-* In Failover Cluster Manager, in the Actions pane, selelct Configure Role.
-* In the Select Role page, select Other Server.
-* In the Client Access Point page, enter the name IIS.
-* Set the address to 10.0.0.9.
-* Skip Select Storage and Select Resource Types.
-* Confirm the settings and then click Finish.
-  
-![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-add-role.png)
+## Troubleshooting
 
 ### Validating the load balancer
 
@@ -87,6 +79,20 @@ After your internal load balancer is running, you can inspect its status to vali
 6. Return to the Load balancer details page, click Refresh, and verify that the 1 / 1 and 0 / 1 values in the Healthy column have switched instance groups.
 
    ![](https://cloud.google.com/static/compute/docs/tutorials/images/failover-clustering-ilb-status.png)
+
+### Active Directory
+
+* This repo will deploy a single Active Directory domain controller with a default name of `test-dc-01`.
+* Terraform utilizes the `sysprep-specialize-script-ps1` in the [metadata](./vm-dc.tf#L41) to install the necessary services like `AD-Domain-Services`. This script is ran one time during the inital boot.
+* After the services in the metedata have been installed, the instance will restart and launch the script defined in the `windows-startup-script-ps1` on each reboot. This script called [dc-startup](./scripts/dc-startup.ps1), contains the logic to configure a Windows Domain and after a new Windows Domain is configured, the logic in the script will create a second user account and make it a Domain Admin. The logic will then wait for the other instances to join the domain.
+
+
+### Windows Failover Clusters
+
+* As the Active Directory instance installs ADDS and configures a new Windows Domain, two new Windows Server Failover Clusters will be deployed.
+* Terraform utilizes the `sysprep-specialize-script-ps` in the [metadata](./vm-cluster.tf#L39) to launch the [specialize-node](./scripts/specialize-node.ps1) script on the first initial boot. The script will install the necessary features for WFSC and IIS. The script will add any local Windows Firewall rules, add a custom default webpage with the hostname, and set the NIC with a static IP address. A requirement for Windows Failover clustering.
+* After the first script runs, a second script called [join-domain](./scripts/join-domain.ps1) executes on every reboot because the `windows-startup-script-ps1` [metadata](./vm-cluster.tf#L40) is set. This script waits for the Windows Domain to become available, then automatically joins the instance to the domain. Once the instance is part of the domain, the script runs again. This time, it detects the domain membership and generates a script to create a new Failover Cluster. That generated script is saved on the instance at:
+[C:\InitializeCluster.ps1](./scripts/join-domain.ps1#L83).
 
 <!-- BEGIN_TF_DOCS -->
 

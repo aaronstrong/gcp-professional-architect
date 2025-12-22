@@ -62,7 +62,7 @@ resource "google_compute_network" "hub" {
 # -------------------------------------------------------------------
 
 resource "google_compute_subnetwork" "subnet0" {
-  # Creaet the first subnet in region
+  # Create the first subnet in region
   name                     = module.vpc_subnet_01.id
   ip_cidr_range            = cidrsubnet(var.cidr_prefix, 1, 0)
   region                   = var.region
@@ -99,7 +99,7 @@ resource "google_compute_address" "main" {
 
 # -------------------------------------------------------------------
 # DEPLOY CLOUD DNS
-# Use Cloud DNS and forward any internal requests to the two
+# Use Cloud DNS and forward any internal requests to the 
 # Domain Controllers
 # -------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ resource "google_dns_managed_zone" "private-zone" {
   }
 
   forwarding_config {
-    # Forward DNS requests to the domain controllers
+    # Forward DNS requests to the domain controller
     target_name_servers {
       ipv4_address = google_compute_address.main["dc1"].address
     }
